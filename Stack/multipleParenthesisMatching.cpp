@@ -1,14 +1,14 @@
 #include <iostream>
 using namespace std;
 
-struct stack
-{
+struct stack{
     int top;
     int size;
-    char *arr;
+    char* arr;
 
-    stack()
-    {
+
+
+    stack(){
         top = -1;
         size = 10;
         arr = new char[size];
@@ -69,57 +69,29 @@ struct stack
         }
     }
 
-    void parenthesisMatched(string data)
-    {
-        bool flag = true;
-        for (int i = 0; i < data.length(); i++)
-        {
-            if (data[i] == '(')
-            {
-                push('(');
+
+    void multipleParenthesisMatching(char exp){
+        int flag = true;
+        for(int i=0; i<size; i++){
+            if(arr[i] == '(' || arr[i] == '{' || arr[i] == '[' ){
+                push(arr[i]);
             }
-            else if (data[i] == ')')
-            {   
-                //Checking if the stack is empty or not
-                if (!isEmpty())
-                {   
-                    //If Empty then pop the ')'
+            else if(arr[i] == ')' || arr[i] == '}' || arr[i] == ']'){
+                if(!isEmpty()){
                     pop();
                 }
-                else
-                {   
-                    //If not empty then end the program as it found ')' without any '('
+                else{
                     flag = false;
                     break;
                 }
             }
-            else{
-                //Loop going on!!
-            }
         }
 
-        if (isEmpty())
-        {   
-            if(!flag){
-                cout << "Parenthesis are not matching!!";
-            }
-            else{
-                cout << "Parenthesis are matching!!";
+        if(flag){
+            cout<<""
+        }
 
-            }
-        }
-        else
-        {
-            cout << "Parenthesis are not matching!!";
-        }
+
     }
 
 };
-
-int main()
-{
-    stack *myStack = new stack();
-    string expression = "3*(28+(25/5)-10)";
-    myStack->parenthesisMatched(expression);
-   
-}
