@@ -60,7 +60,7 @@ struct stack
     {
         if (isEmpty())
         {
-            cout << "Value cannot be popped as stack is already empty!!";
+            cout << "Stack UnderFlow \n";
         }
         else
         {
@@ -71,46 +71,49 @@ struct stack
 
     void parenthesisMatched(string data)
     {
+        bool flag = true;
         for (int i = 0; i < data.length(); i++)
         {
             if (data[i] == '(')
-            {   
+            {
                 push('(');
             }
-            if(data[i] == ')'){
-                pop();
+            else if (data[i] == ')')
+            {   
+                //Checking if the stack is empty or not
+                if (!isEmpty())
+                {   
+                    //If Empty then pop the ')'
+                    pop();
+                }
+                else
+                {   
+                    //If not empty then end the program as it found ')' without any '('
+                    flag = false;
+                    break;
+                }
+            }
+            else{
+                //Loop going on!!
             }
         }
-    }
 
-
-    bool parenthesisIsMatching(){
-        if(isEmpty()){
-            return true;
+        if (flag)
+        {
+            cout << "Parenthesis are  matching!!";
         }
-        return false;
+        else
+        {
+            cout << "Parenthesis are not matching!!";
+        }
     }
+
 };
 
 int main()
-{   
+{
     stack *myStack = new stack();
-    string expression = "3*23*)1*(5-1)-2)";
+    string expression = "3*23*(1*(5-1))-2";
     myStack->parenthesisMatched(expression);
-    // for(int i = 0; i<myStack->size; i++){
-    //     if(myStack->arr[i] == NULL){
-    //         return 
-    //     }
-    //     else{
-    //         cout<<"Parenthesis is not matching";
-    //     }
-    // }
-
-    if(myStack->parenthesisIsMatching()){
-        cout<<"Yes";
-    }
-    else{
-        cout<<"NO";
-    }
-    
+   
 }
