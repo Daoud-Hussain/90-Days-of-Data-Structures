@@ -1,14 +1,14 @@
 #include <iostream>
 using namespace std;
 
-struct stack{
+struct stack
+{
     int top;
     int size;
-    char* arr;
+    char *arr;
 
-
-
-    stack(){
+    stack()
+    {
         top = -1;
         size = 10;
         arr = new char[size];
@@ -69,29 +69,48 @@ struct stack{
         }
     }
 
-
-    void multipleParenthesisMatching(char exp){
+    void multipleParenthesisMatching(string exp)
+    {
         int flag = true;
-        for(int i=0; i<size; i++){
-            if(arr[i] == '(' || arr[i] == '{' || arr[i] == '[' ){
+        for (int i = 0; i < exp.length(); i++)
+        {
+            if (arr[i] == '(' || arr[i] == '{' || arr[i] == '[')
+            {
                 push(arr[i]);
             }
-            else if(arr[i] == ')' || arr[i] == '}' || arr[i] == ']'){
-                if(!isEmpty()){
+            else if (arr[i] == ')' || arr[i] == '}' || arr[i] == ']')
+            {
+                if (!isEmpty())
+                {
                     pop();
                 }
-                else{
+                else
+                {
+                    cout<<"Mn yahaan hoon, Ap kidar hoo";
                     flag = false;
                     break;
                 }
             }
         }
 
-        if(flag){
-            cout<<""
+        if (isEmpty())
+        {
+            if (!flag)
+            {
+                cout << "Parenthesis are not balanced!!";
+            }
+            cout << "Parenthesis are balanced!!";
         }
-
-
+        else
+        {
+            cout << "Parenthesis are not balanced!!";
+        }
     }
-
 };
+
+int main()
+{
+    stack *myStack = new stack();
+    string expression = "3[2*{4+(40/8}]";
+    myStack->multipleParenthesisMatching(expression);
+}
