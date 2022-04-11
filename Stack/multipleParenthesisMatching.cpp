@@ -69,27 +69,64 @@ struct stack
         }
     }
 
-    void multipleParenthesisMatching(string exp)
+    // void multipleParenthesisMatching(string exp)
+    // {
+    //     int flag = true;
+    //     for (int i = 0; i < exp.length(); i++)
+    //     {
+    //         if (arr[i] == '(' || arr[i] == '{' || arr[i] == '[')
+    //         {
+    //             push(arr[i]);
+    //         }
+    //         else if (arr[i] == ')' || arr[i] == '}' || arr[i] == ']')
+    //         {
+    //             if (!isEmpty())
+    //             {
+    //                 pop();
+    //             }
+    //             else
+    //             {
+    //                 cout<<"Mn yahaan hoon, Ap kidar hoo";
+    //                 flag = false;
+    //                 break;
+    //             }
+    //         }
+    //     }
+
+
+    void parenthesisMatched(string data)
     {
-        int flag = true;
-        for (int i = 0; i < exp.length(); i++)
+        bool flag = true;
+        char* temp = "";
+        for (int i = 0; i < data.length(); i++)
         {
-            if (arr[i] == '(' || arr[i] == '{' || arr[i] == '[')
+            if (data[i] == '(' || data[i] == '{' || data[i] == '[')
             {
                 push(arr[i]);
+                temp = data[i];
             }
-            else if (arr[i] == ')' || arr[i] == '}' || arr[i] == ']')
-            {
+            else if (data[i] == ')' || data[i] == '}' || data[i] == ']')
+            {   
+                //Checking if the stack is empty or not
                 if (!isEmpty())
-                {
-                    pop();
+                {   
+                    //If Empty then pop the ')'
+                    if(temp == data[i]){
+                        pop();
+                    }
+                    else{
+                        flag = false;
+                    }
                 }
                 else
-                {
-                    cout<<"Mn yahaan hoon, Ap kidar hoo";
+                {   
+                    //If not empty then end the program as it found ')' without any '('
                     flag = false;
                     break;
                 }
+            }
+            else{
+                //Loop going on!!
             }
         }
 
@@ -99,7 +136,9 @@ struct stack
             {
                 cout << "Parenthesis are not balanced!!";
             }
-            cout << "Parenthesis are balanced!!";
+            else{
+                cout << "Parenthesis are balanced!!";
+            }
         }
         else
         {
@@ -111,6 +150,6 @@ struct stack
 int main()
 {
     stack *myStack = new stack();
-    string expression = "3[2*{4+(40/8}]";
-    myStack->multipleParenthesisMatching(expression);
+    string expression = "3*2{5+5)*(2*2)";
+    myStack->parenthesisMatched(expression);
 }
