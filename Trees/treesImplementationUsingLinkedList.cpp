@@ -7,7 +7,7 @@ struct trees
     trees *left = NULL;
     trees *right = NULL;
 };
-struct tree *root = NULL;
+struct trees *root = NULL;
 
 // Method to create a node
 trees *createNode(int value)
