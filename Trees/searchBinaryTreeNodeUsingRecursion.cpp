@@ -27,8 +27,6 @@ bool searchNode(Node* p, int key){
 } 
 
 
-
-
 //Method to create a Node in the tree
 Node* createNode(int value)
 {
@@ -49,6 +47,17 @@ Node* createNode(int value)
     }
 }
 
+//Method to print values of BST nodes
+Node* printNodes(Node* p){
+    if( p!=NULL){
+        return p;
+    }
+    printNodes(p->left);
+    cout<<p->data<<" ";
+    printNodes(p->right);
+}
+
+
 int main()
 {   
     //Creating nodes in the binary tree
@@ -64,4 +73,5 @@ int main()
     n2->left = n4;
     n2->right = n5;
 
+    printNodes(n1);
 }
