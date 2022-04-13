@@ -43,12 +43,20 @@ void inOrderTraversal(Node* p){
 
 int main()
 {
-    // Creating nodes in the binary tree
+    //         10
+    //       /    \
+    //      20     30
+    //     /  \     \
+    //    40   50    60
+
+
+   // Creating nodes in the binary tree
     Node *n1 = createNode(10);
     n1->left = createNode(20);
     n1->right = createNode(30);
     n1->left->left = createNode(40);
-    n1->right->left = createNode(50);
+    n1->left->right = createNode(50);
+    n1->right->right = createNode(60);
     
     inOrderTraversal(n1);
 }

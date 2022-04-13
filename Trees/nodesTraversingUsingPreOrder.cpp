@@ -42,14 +42,20 @@ void traverseNodes(Node *p)
 }
 
 int main()
-{
-    Node *rootNode = createNode(10);
-    rootNode->left = createNode(20);
-    rootNode->left->left = createNode(30);
-    rootNode->left->right = createNode(40);
-    rootNode->right = createNode(50);
-    rootNode->right->right = createNode(60);
-    rootNode->right->left = createNode(70);
+{   
+    //         10
+    //       /    \
+    //      20     30
+    //     /  \     \
+    //    40   50    60
 
-    traverseNodes(rootNode);
+    Node *n1 = createNode(10);
+    n1->left = createNode(20);
+    n1->right = createNode(30);
+    n1->left->left = createNode(40);
+    n1->left->right = createNode(50);
+    n1->right->right = createNode(60);
+    
+
+    traverseNodes(n1);
 }
