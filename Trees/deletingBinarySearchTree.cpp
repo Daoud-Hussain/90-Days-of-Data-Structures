@@ -39,15 +39,40 @@ void inOrderTraversal(Node* p){
 
 //Method to delete a node in BST
 void deleteBSTNode(int key){
+    Node* child = root;
+    Node* parent;
     
+
+    while(child != NULL && child->data != key){
+
+        parent = child;
+        if(key > child->data){
+            child = child->right;
+        }
+        else{
+            child = child->left;
+        }
+
+        
+    }
+
 }
 
-int main(){
+int main(){\
+    //         20
+    //       /    \
+    //      10     30
+    //     /       / \
+    //    5      25   40
+
     Node* p1 = createNode(20);
     p1->left = createNode(10);
     p1->right = createNode(30);
     p1->left->left = createNode(5);
-    p1->right->left = createNode(7);
+    p1->right->left = createNode(25);
+    p1->right->right = createNode(40);
 
     inOrderTraversal(p1);
+
+    deleteBSTNode(30);
 }
