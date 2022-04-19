@@ -69,35 +69,11 @@ struct stack
         }
     }
 
-    // void multipleParenthesisMatching(string exp)
-    // {
-    //     int flag = true;
-    //     for (int i = 0; i < exp.length(); i++)
-    //     {
-    //         if (arr[i] == '(' || arr[i] == '{' || arr[i] == '[')
-    //         {
-    //             push(arr[i]);
-    //         }
-    //         else if (arr[i] == ')' || arr[i] == '}' || arr[i] == ']')
-    //         {
-    //             if (!isEmpty())
-    //             {
-    //                 pop();
-    //             }
-    //             else
-    //             {
-    //                 cout<<"Mn yahaan hoon, Ap kidar hoo";
-    //                 flag = false;
-    //                 break;
-    //             }
-    //         }
-    //     }
-
 
     void parenthesisMatched(string data)
     {
         bool flag = true;
-        char* temp = "";
+        char temp = "";
         for (int i = 0; i < data.length(); i++)
         {
             if (data[i] == '(' || data[i] == '{' || data[i] == '[')
