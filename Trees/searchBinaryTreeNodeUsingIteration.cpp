@@ -29,6 +29,7 @@ bool searchNode(Node *rootNode, int key)
         }
         else
         {
+            cout << "Node " << p->data << " is found in the binary tree!!";
             flag = true;
         }
     }
