@@ -53,24 +53,63 @@ void deleteBSTNode(int key){
             child = child->left;
         }
 
+        if(child == NULL){
+            cout<<"No record Found!!";
+        }
+        else{
+            if(parent->right != NULL || parent->left != NULL){
+                if(parent->left != NULL ){
+                    if(child->right == NULL){
+                        parent->left = child->left;
+                        delete child;
+                    }
+                    else{
+                        parent->left = child->right;
+                        delete child;
+
+                    }
+                }
+            }
+            else{
+                if(parent->right != NULL){
+                    if(child->right != NULL){
+                        parent->right = child->left;
+                        delete child;
+
+                    }
+                    else{
+                        parent->right = child->right;
+                        delete child;
+
+                    }
+                }
+            }
+        }
         
     }
 
 }
 
-int main(){\
-    //         20
-    //       /    \
-    //      10     30
-    //     /       / \
-    //    5      25   40
+int main(){
+    //            20
+    //         /     \
+    //        10       30
+    //       /  \     /  \
+    //      5    15  25   40
+    //     /     /   \    /
+    //    4     13  22    35
 
     Node* p1 = createNode(20);
     p1->left = createNode(10);
     p1->right = createNode(30);
     p1->left->left = createNode(5);
+    p1->left->left->left = createNode(4);
+    p1->left->right = createNode(15);
+    p1->left->right->left = createNode(13);
     p1->right->left = createNode(25);
+    p1->right->left->left = createNode(22);
     p1->right->right = createNode(40);
+    p1->right->right->left = createNode(35);
 
     inOrderTraversal(p1);
 
