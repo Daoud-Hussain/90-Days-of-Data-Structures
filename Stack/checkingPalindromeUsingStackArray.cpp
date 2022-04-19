@@ -4,19 +4,16 @@ using namespace std;
 struct stack{
     int top;
     int size;
-    int *arr;
-    int *revArr;
-    int revTop;
+    char *arr;
 
 
     stack(){
         top = -1;
         size = 10;
-        arr = new int[size];
-        revArr = new int[size];
-        revTop = -1;
+        arr = new char[size];
     }
 
+// Method to check whether the stack is full or not
     bool isFull(){
         if(top == size-1){
             return true;
@@ -24,55 +21,80 @@ struct stack{
         return false;
     }
 
+
+// Method to check whether the stack is empty or not
     bool isEmpty(){
         if(top == -1){
             return true;
         }
         return false;
     }
-
-    void push(int value){
-        if(isFull()){
-            cout<<value<<" cannot be pushed as stack is already full!";
+    
+// Method to push a value in the stack
+    void push(char exp)
+    {
+        if (isFull())
+        {
+            cout << " Stack OverFlow" << endl;
         }
-        else{
-            top++;
-            arr[top] = value;        
+        else
+        {
+            arr[++top] = exp;
         }
     }
 
-    void pop(){
+// Method to pop a value from the stack
+    char pop(){
         if(isEmpty()){
             cout<<"Stack UnderFlow!!";
         }
         else{
             int value = arr[top];
             top--;
-            revTop++;
-            revArr[revTop] = value;
+            return value;
             
         }
     }
 
+// Method to display values of the stack
     void display(){
         int t = top;
         for(int i=t; i != -1; i--){
-            cout<<arr[t]<<" ";
+            cout<<arr[t];
             t--;
         }
 
-        cout<<endl;
-        int rt = revTop;
-        while(rt != -1){
-            cout<<revArr[rt]<<" ";
-            rt--;
-
-        }
-
-
     }
 
+// Method to check whether the string the string is palindrome or not
+    void checkPalindrome(string exp){
+        int i = 0;
+        while(i != exp.length()){
+            push(exp[i]);
+            i++;
+        }
+        int count = 0;
+        int t = 0;
+        string popped = "";
 
+        while(!isEmpty()){
+            popped += pop();
+        }
+
+        for(int i=0; i<popped.length(); i++){
+            if(arr[i] != popped[i]){
+                count++;
+            }
+
+        }
+        if(count != 0){
+            cout<<"Not a Palindrome!!";
+        }
+        else{
+            cout<<"A Palindrome!!";
+        }
+    }
+    
 
 };
 
@@ -81,16 +103,8 @@ struct stack{
 
 int main(){
     stack myStack;
-    myStack.push(10);
-    myStack.push(20);
-    myStack.push(30);
-    myStack.push(40);
-    myStack.push(50);
+    string expression = "noon";
+    myStack.checkPalindrome(expression);
 
-    myStack.display();
-    cout<<"\n";
-    myStack.pop();
-    myStack.pop();
-
-    myStack.display();
+    
 }
