@@ -31,12 +31,11 @@ struct Queue
         }
     }
 
-    // insert_rear function will insert the value from the rear
     void EnqueueFromRear(string data)
     {
         if ((front == 0 && rear == size - 1) || (front == rear + 1))
         {
-            cout<<("Overflow");
+            cout<<("Queue Overflow");
         }
         else if ((front == -1) && (rear == -1))
         {
@@ -55,53 +54,53 @@ struct Queue
         }
     }
 
-    // delete_front() function deletes the element from the front
+
     void DequeueFromFront()
     {
         string value;
         if ((front == -1) && (rear == -1))
         {
-            cout<<("Deque is empty");
+            cout<<("You have not ordered anything. Order First!!")<<endl;
         }
         else if (front == rear)
         {
-            cout<<"The element is: "<<arr[front]<<endl;
+            cout<<"Your "<<arr[front]<<" is ready" <<endl;
             front = -1;
             rear = -1;
         }
         else if (front == (size - 1))
         {
-            cout<<"The element is: "<<arr[front]<<endl;
+            cout<<"Your "<<arr[front]<<" is ready" <<endl;
             front = 0;
         }
         else
         {
-            cout<<"The element is: "<<arr[front]<<endl;
+            cout<<"Your "<<arr[front]<<" is ready" <<endl;
             front = front + 1;
         }
     }
-
-    // delete_rear() function deletes the element from the rear
+    
+    
     void DequeueFromRear()
     {
         if ((front == -1) && (rear == -1))
         {
-            cout<<("Deque is empty");
+            cout<<("You have not ordered anything. Order First!!")<<endl;
         }
         else if (front == rear)
         {
-            cout<<"The element is: "<<arr[rear]<<endl;
+            cout<<"Your "<<arr[rear]<<" is ready" <<endl;
             front = -1;
             rear = -1;
         }
         else if (rear == 0)
         {
-            cout<<"The element is: "<<arr[rear]<<endl;
+            cout<<"Your "<<arr[rear]<<" is ready" <<endl;
             rear = size - 1;
         }
         else
         {
-            cout<<"The element is: "<<arr[rear]<<endl;
+            cout<<"Your "<<arr[rear]<<" is ready" <<endl;
             rear = rear - 1;
         }
     }
