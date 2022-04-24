@@ -6,14 +6,16 @@ struct Queue
     int size;
     int front;
     int rear;
-    int *arr;
+    string *arrOrder;
+    int *arrAge;
 
     Queue()
     {
         size = 10;
         front = -1;
         rear = -1;
-        arr = new int[size];
+        arrOrder = new string[size];
+        arrAge = new int[size];
     }
 
     bool isFull()
@@ -34,7 +36,7 @@ struct Queue
         return false;
     }
 
-    void Enqueue(int data)
+    void Enqueue(string data, int age)
     {
         if (isFull())
         {
@@ -44,26 +46,44 @@ struct Queue
         {
             front = 0;
             rear = 0;
-            arr[rear] = data;
+            arrOrder[rear] = data;
+            arrAge[rear] = age;
             rear = (rear + 1) % size;
         }
         else
         {
-            arr[rear] = data;
+            arrOrder[rear] = data;
+            arrAge[rear] = age;
             rear = (rear + 1) % size;
         }
     }
 
-    int Dequeue()
+    string Dequeue()
     {
-        if (!isEmpty())
-        {
-            int value = arr[front];
-            front = (front + 1) % size;
+        if (!isEmpty() && front != rear)
+        {   
+            int fr = front;
+            int  max = 1000;
+            int maxAgeIndex;
+            while (fr != rear)
+            {
+                if(arrAge[fr] > max){
+                    max = arrAge[fr];
+                    maxAgeIndex = fr;
+
+                }
+                fr = (fr+1)%size;
+            }
+            
+            string value = arrOrder[maxAgeIndex];
+            int age = arrAge[max];
+            max = (front + 1) % size;
+            cout<<"Your "<< value << " is ready according to your age ie, "<< age<<endl;
             return value;
         }
         else{
             front = rear = -1;
+            cout<<"You have not ordered anything! Order First"<<endl;
         }
     }
 
@@ -78,7 +98,7 @@ struct Queue
             int f = front;
             while (f != rear)
             {
-                cout << arr[f] << " ";
+                cout << arrOrder[f] << " ";
                 f = (f + 1) % size;
             }
         }
@@ -86,16 +106,40 @@ struct Queue
 };
 
 int main()
-{
+{   
+    int choice;
+    string yourOrder;
+    int yourAge;
     Queue myQueue;
-    myQueue.Enqueue(10);
-    myQueue.Enqueue(20);
-    myQueue.Enqueue(30);
-    myQueue.Enqueue(40);
-    myQueue.Enqueue(50);
-    myQueue.Dequeue();
-    myQueue.Dequeue();
-    myQueue.Dequeue();
-    myQueue.Dequeue();
-    myQueue.display();
+    bool flag = true;
+    while(flag){
+        cout<<"Enter 1 to place order: "<<endl;
+        cout<<"Enter 2 to get order: "<<endl;
+        cout<<"Enter 3 to exit: "<<endl;
+        cout<<"Enter your choice: ";
+        cin>>choice;
+        switch (choice)
+        {
+            case 1:
+                cout<<"Enter your age: ";
+                cin>>yourAge;
+                cout<<"Enter your order to place: ";
+                cin>>yourOrder;
+                myQueue.Enqueue(yourOrder, yourAge);
+                break;
+            case 2:
+                myQueue.Dequeue();
+                break;
+            case 3:
+                cout<<"Exit"<<endl;
+                flag = false;
+                break;
+            default: 
+                cout<<"Invalid input"<<endl;
+                break;
+        }
+        cout<<endl;
+
+    }
+
 }
