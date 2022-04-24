@@ -60,10 +60,10 @@ struct Queue
 
     string Dequeue()
     {
-        if (!isEmpty() && front != rear)
+        if (rear != front)
         {   
             int fr = front;
-            int  max = 1000;
+            int  max = 0;
             int maxAgeIndex;
             while (fr != rear)
             {
@@ -76,9 +76,11 @@ struct Queue
             }
             
             string value = arrOrder[maxAgeIndex];
-            int age = arrAge[max];
+            int age = arrAge[maxAgeIndex];
             max = (front + 1) % size;
             cout<<"Your "<< value << " is ready according to your age ie, "<< age<<endl;
+            arrOrder[maxAgeIndex] = "";
+            arrAge[maxAgeIndex] = 0;
             return value;
         }
         else{
