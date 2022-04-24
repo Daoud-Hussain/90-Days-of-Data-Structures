@@ -6,14 +6,14 @@ struct Queue
     int size;
     int front;
     int rear;
-    string *arr;
+    int *arr;
 
     Queue()
     {
         size = 10;
         front = -1;
         rear = -1;
-        arr = new string[size];
+        arr = new int[size];
     }
 
     bool isFull()
@@ -34,7 +34,7 @@ struct Queue
         return false;
     }
 
-    void Enqueue(string data)
+    void Enqueue(int data)
     {
         if (isFull())
         {
@@ -54,18 +54,16 @@ struct Queue
         }
     }
 
-    string Dequeue()
+    int Dequeue()
     {
-        if (!isEmpty() && front != rear)
+        if (!isEmpty())
         {
-            string value = arr[front];
+            int value = arr[front];
             front = (front + 1) % size;
-            cout<<"Your "<< value << " is ready"<<endl;
             return value;
         }
         else{
             front = rear = -1;
-            cout<<"You have not ordered anything! Order First"<<endl;
         }
     }
 
@@ -88,37 +86,16 @@ struct Queue
 };
 
 int main()
-{   
-    int choice;
-    string order;
+{
     Queue myQueue;
-    bool flag = true;
-    while(flag){
-        cout<<"Enter 1 to place order: "<<endl;
-        cout<<"Enter 2 to get order: "<<endl;
-        cout<<"Enter 3 to exit: "<<endl;
-        cout<<"Enter your choice: ";
-        cin>>choice;
-        switch (choice)
-        {
-            case 1:
-                cout<<"Enter your order to place: ";
-                cin>>order;
-                myQueue.Enqueue(order);
-                break;
-            case 2:
-                myQueue.Dequeue();
-                break;
-            case 3:
-                cout<<"Exit"<<endl;
-                flag = false;
-                break;
-            default: 
-                cout<<"Invalid input"<<endl;
-                break;
-        }
-        cout<<endl;
-
-    }
-
+    myQueue.Enqueue(10);
+    myQueue.Enqueue(20);
+    myQueue.Enqueue(30);
+    myQueue.Enqueue(40);
+    myQueue.Enqueue(50);
+    myQueue.Dequeue();
+    myQueue.Dequeue();
+    myQueue.Dequeue();
+    myQueue.Dequeue();
+    myQueue.display();
 }
