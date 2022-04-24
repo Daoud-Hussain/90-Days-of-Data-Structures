@@ -42,6 +42,11 @@ struct Queue{
             front = rear = 0;
             arr[front] = data;
         }
+        else if(front = 0){
+            front = size -1;
+            arr[front] = data;
+
+        }
         else{
             front++;
             arr[front] = data;
@@ -71,6 +76,7 @@ struct Queue{
         else{
             string value = arr[front];
             front++;
+            return value;
         }
     }
 
@@ -82,12 +88,19 @@ struct Queue{
         else{
             string value = arr[rear];
             rear++;
+            return value;
         }
     }
 
 };
 
 int main(){
-
+    Queue myQueue;
+    myQueue.EnqueuFromFront("ABC");
+    myQueue.EnqueuFromFront("DEF");
+    myQueue.EnqueuFromFront("GHI");
+    myQueue.EnqueuFromFront("JKL");
+    cout<<myQueue.DequeueFromRear()<<" ";
+    cout<<myQueue.DequeueFromRear()<<" ";
 
 }
