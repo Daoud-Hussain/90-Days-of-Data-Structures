@@ -43,18 +43,20 @@ struct Stack
         }
     }
 
-    void pop()
+    int pop()
     {
 
         if (isEmpty())
         {
             cout << "Stack UnderFlow";
+            return -1;
         }
         else
         {
             int value = arr[top];
             top--;
-            cout << "Popped Value is: " << value;
+            return value;
+
         }
     }
     void display()
@@ -68,21 +70,43 @@ struct Stack
     }
 };
 
-void sortByStack()
-{
+void sortByStack(Stack s1, Stack s2){
+    int min = 2147483647;
+    int poppedValue = 0;
+
+
+    //Popping all values from initial stack (s1)
+    //and pushing into the final stack (s2) and finding minimum number
+    while (!s1.isEmpty()){
+        poppedValue = s1.pop();
+        if(poppedValue < min){
+            min = poppedValue;
+        }
+        s2.push(poppedValue);
+    }
+
+    while(!s2.isEmpty()){
+        poppedValue = s2.pop();
+        if(poppedValue == min){
+            continue;
+        }
+        else{
+            s1.push(poppedValue);
+        }
+    }
+
+    //Pushing the smallest value to the top
+    s1.push(min);
+   
 }
 
 int main()
 {
-    Stack myStack;
-    myStack.push(10);
-    myStack.push(20);
-    myStack.push(30);
-    myStack.push(40);
-    myStack.push(50);
-
-    myStack.pop();
-    myStack.pop();
-    myStack.pop();
-    myStack.pop();
+    Stack stack1;
+    Stack stack2;
+    stack1.push(10);
+    stack1.push(20);
+    stack1.push(30);
+    stack1.push(40);
+    stack1.push(50);
 }
