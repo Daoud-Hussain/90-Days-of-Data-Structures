@@ -64,7 +64,7 @@ struct Stack
         int t = top;
         while (t != -1)
         {
-            cout << arr[t] << " " << endl;
+            cout << arr[t] << " " ;
             t--;
         }
     }
@@ -85,6 +85,9 @@ void sortByStack(Stack s1, Stack s2){
         s2.push(poppedValue);
     }
 
+
+    //Now pushing back all the values to the initial stack (s1) except the 
+    //Smallest element and pushing minimum at the top
     while(!s2.isEmpty()){
         poppedValue = s2.pop();
         if(poppedValue == min){
@@ -109,4 +112,12 @@ int main()
     stack1.push(30);
     stack1.push(40);
     stack1.push(50);
+
+    cout<<"Before"<<endl;
+    stack1.display();
+    cout<<endl;
+    cout<<"After"<<endl;
+    sortByStack(stack1, stack2);
+    stack1.display();
+
 }
