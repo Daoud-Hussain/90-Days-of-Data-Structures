@@ -87,7 +87,7 @@ struct Queue
         {
             cout<<("You have not ordered anything. Order First!!")<<endl;
         }
-        else if (efront == rar)
+        else if (front == rear)
         {
             cout<<"Your "<<arr[rear]<<" is ready" <<endl;
             front = -1;
