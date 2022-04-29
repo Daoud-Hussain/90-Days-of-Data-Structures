@@ -78,7 +78,7 @@ struct Queue
             string value = arrOrder[maxAgeIndex];
             int age = arrAge[maxAgeIndex];
             max = (front + 1) % size;
-            cout<<"Your "<< value << " is ready according to your age ie, "<< age<<endl;
+            cout<<"Your "<< value << " is ready according to your age i.e, "<< age<<endl;
             arrOrder[maxAgeIndex] = "";
             arrAge[maxAgeIndex] = 0;
             return value;
