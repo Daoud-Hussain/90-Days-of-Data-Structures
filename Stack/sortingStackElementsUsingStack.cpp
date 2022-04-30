@@ -43,7 +43,7 @@ struct Stack
         }
     }
 
-    int pop(int data)
+    int pop()
     {
 
         if (isEmpty())
