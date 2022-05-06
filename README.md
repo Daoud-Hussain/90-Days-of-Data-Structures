@@ -183,7 +183,7 @@ The code to write a tree node would be similar to what is given below. It has a 
 ### Author
 - <a href="http://daoud-hussain.com/"> Daoud Hussain </a> 
 ### References:
-- <a href="https://www.w3schools.com/java/java_intro.asp"> W3Schools</a> 
-- <a href="https://www.geeksforgeeks.org/introduction-to-java/"> Geeks for Geeks </a> 
-- <a href="https://www.javatpoint.com/java-tutorial"> JavaT point </a> 
-- <a href="https://www.programiz.com/java-programming"> Programmiz </a> 
+- <a href="https://www.w3schools.com/CPP/cpp_intro.asp"> W3Schools</a> 
+- <a href="https://www.geeksforgeeks.org/c-plus-plus/"> Geeks for Geeks </a> 
+- <a href="https://www.javatpoint.com/cpp-tutorial"> JavaT point </a> 
+- <a href="https://www.programiz.com/cpp-programming#:~:text=C%2B%2B%20is%20a%20powerful%20general,powerful%20as%20well%20as%20flexible."> Programmiz </a> 
