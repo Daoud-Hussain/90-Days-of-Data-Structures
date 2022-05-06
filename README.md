@@ -177,3 +177,13 @@ The code to write a tree node would be similar to what is given below. It has a 
        Tree *leftChild;
        Tree *rightChild;
     };
+
+#
+
+### Author
+- <a href="http://daoud-hussain.com/"> Daoud Hussain </a> 
+### References:
+- <a href="https://www.w3schools.com/java/java_intro.asp"> W3Schools</a> 
+- <a href="https://www.geeksforgeeks.org/introduction-to-java/"> Geeks for Geeks </a> 
+- <a href="https://www.javatpoint.com/java-tutorial"> JavaT point </a> 
+- <a href="https://www.programiz.com/java-programming"> Programmiz </a> 
