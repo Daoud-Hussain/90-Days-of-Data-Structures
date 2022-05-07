@@ -57,7 +57,6 @@ struct Stack
             int value = arr[top];
             top--;
             return value;
-
         }
     }
     void display()
@@ -65,8 +64,22 @@ struct Stack
         int t = top;
         while (t != -1)
         {
-            cout << arr[t] << " " ;
+            cout << arr[t] << " ";
             t--;
         }
     }
 };
+
+void reverseStackUsingArray(Stack myStack, int tempArray[])
+{
+    int i = 0;
+
+    // Popping elements from the stack until the stack gets empty
+    // and storing the elements in the array.
+    while (!myStack.isEmpty())
+    {
+        int popped = myStack.pop();
+        tempArray[i] = popped;
+        i++;
+    }
+}
