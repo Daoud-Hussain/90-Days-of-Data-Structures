@@ -9,9 +9,15 @@ using namespace std;
 
 struct Stack
 {   
-    int top = -1;
-    int size = 10;
-    int *arr = new int[size];
+    int top;
+    int size;
+    int *arr ;
+
+    Stack(int s){
+        int top = -1;
+        int size = s;
+        int *arr = new int[size];
+    }
 
     bool isFull()
     {
@@ -85,32 +91,40 @@ void reverseStackUsingArray(Stack myStack, int tempArray[])
 
     
     // Storing the array elements back in the stack.
+    int i = 0;
     while(!myStack.isFull()){
-        myStack.push(tempArray[count]);
-        count--;
+        myStack.push(tempArray[i]);
+        i++;
     }
 
 }
 
 int main(){
-    Stack stack;
-    stack.push(10);
-    stack.push(20);
-    stack.push(30);
-    stack.push(40);
-    stack.push(50);
-    stack.push(60);
-    stack.push(70);
-    stack.push(80);
-    stack.push(90);
-    stack.push(100);
-    cout<<"BEfore"<<endl;
-    stack.display();
+    //Making a stack filled by user
+    int sizeOfStack;
+    int valueOfStack;
+    int i = 0;
 
+    cout<<"Enter the size of stack: ";
+    cin>>sizeOfStack;
     cout<<endl;
-    int myArray[10];
+
+    Stack stack(sizeOfStack);
+    while(i < sizeOfStack){
+        cout<<"Enter the value of stack for top = "<<i<<": ";
+        cin>>valueOfStack;
+        i++;
+        stack.push(valueOfStack);
+
+    }
+
+
+    stack.display();
+    cout<<endl;
+
+    //Reversing the stack
+    int myArray[sizeOfStack];
     reverseStackUsingArray(stack, myArray);
-    cout<<"After"<<endl;
     stack.display();
 
 
