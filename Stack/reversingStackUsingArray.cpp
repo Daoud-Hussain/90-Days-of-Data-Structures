@@ -8,7 +8,7 @@ You can't use anyother stack to implement.
 using namespace std;
 
 struct Stack
-{
+{   
     int top = -1;
     int size = 10;
     int *arr = new int[size];
@@ -72,14 +72,46 @@ struct Stack
 
 void reverseStackUsingArray(Stack myStack, int tempArray[])
 {
-    int i = 0;
+    int count = 0;
 
     // Popping elements from the stack until the stack gets empty
     // and storing the elements in the array.
     while (!myStack.isEmpty())
     {
         int popped = myStack.pop();
-        tempArray[i] = popped;
-        i++;
+        tempArray[count] = popped;
+        count++;
     }
+
+    
+    // Storing the array elements back in the stack.
+    while(!myStack.isFull()){
+        myStack.push(tempArray[count]);
+        count--;
+    }
+
+}
+
+int main(){
+    Stack stack;
+    stack.push(10);
+    stack.push(20);
+    stack.push(30);
+    stack.push(40);
+    stack.push(50);
+    stack.push(60);
+    stack.push(70);
+    stack.push(80);
+    stack.push(90);
+    stack.push(100);
+    cout<<"BEfore"<<endl;
+    stack.display();
+
+    cout<<endl;
+    int myArray[10];
+    reverseStackUsingArray(stack, myArray);
+    cout<<"After"<<endl;
+    stack.display();
+
+
 }
