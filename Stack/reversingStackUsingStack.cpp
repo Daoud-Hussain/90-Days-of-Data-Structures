@@ -76,15 +76,51 @@ void reverseStackUsingStack(Stack s1, Stack s2)
     // Popping elements from the stack until the stack gets empty
     // and storing the elements in the other stack one by one.
     while (!s1.isEmpty())
-    {
+    {   
         int popped = s1.pop();
         s2.push(popped);
     }
 
     // Storing the array elements back in the original stack.
-    while (!s1.isFull())
+    while (!s2.isEmpty())
     {
-        int popped = s2.pop();
-        s1.push(popped);
+        int popped1 = s2.pop();
+        s1.push(popped1);
     }
+
+    cout<<"After filling s2: "<<endl;
+    s2.display();
+    cout<<"After filling s1: "<<endl;
+    s1.display();
+    cout<<endl;
+
+}
+
+int main()
+{
+    // Making a stack manually and pushing values
+    Stack stack1;
+    stack1.push(10);
+    stack1.push(20);
+    stack1.push(30);
+    stack1.push(40);
+    stack1.push(50);
+    stack1.push(60);
+    stack1.push(70);
+    stack1.push(80);
+    stack1.push(90);
+    stack1.push(100);
+    cout << "Stack before reversing is: " << endl;
+    stack1.display();
+    cout << endl;
+    cout << endl;
+
+    // Declaring another empty stack
+    Stack stack2;
+
+    reverseStackUsingStack(stack1, stack2);
+    cout << "Stack after reversing is: " << endl;
+    stack2.display();
+
+
 }
