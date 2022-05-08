@@ -69,3 +69,22 @@ struct Stack
         }
     }
 };
+
+void reverseStackUsingStack(Stack s1, Stack s2)
+{
+
+    // Popping elements from the stack until the stack gets empty
+    // and storing the elements in the other stack one by one.
+    while (!s1.isEmpty())
+    {
+        int popped = s1.pop();
+        s2.push(popped);
+    }
+
+    // Storing the array elements back in the original stack.
+    while (!s1.isFull())
+    {
+        int popped = s2.pop();
+        s1.push(popped);
+    }
+}
