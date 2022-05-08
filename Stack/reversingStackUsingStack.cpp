@@ -1,7 +1,7 @@
 /*
 Problem Statement:
-Reverse a Given stack using an additional array.
-You can't use anyother stack to implement.
+Reverse a Given stack without using an additional array.
+You can use anyother stack to implement.
 */
 
 #include <iostream>
@@ -46,3 +46,26 @@ struct Stack
 
     int pop()
     {
+
+        if (isEmpty())
+        {
+            cout << "Stack UnderFlow";
+            return -1;
+        }
+        else
+        {
+            int value = arr[top];
+            top--;
+            return value;
+        }
+    }
+    void display()
+    {
+        int t = top;
+        while (t != -1)
+        {
+            cout << arr[t] << " ";
+            t--;
+        }
+    }
+};
