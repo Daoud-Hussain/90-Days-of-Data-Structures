@@ -1,7 +1,7 @@
 /*
 Problem Statement:
 Reverse a Given stack without using an additional array.
-You can use anyother stack to implement.
+You can use additional stacks to implement.
 */
 
 #include <iostream>
@@ -70,7 +70,7 @@ struct Stack
     }
 };
 
-void reverseStackUsingStack(Stack s1, Stack s2)
+void reverseStackUsingStack(Stack s1, Stack s2, Stack s3)
 {
 
     // Popping elements from the stack until the stack gets empty
@@ -81,18 +81,18 @@ void reverseStackUsingStack(Stack s1, Stack s2)
         s2.push(popped);
     }
 
-    // Storing the array elements back in the original stack.
+    // Pushing all the stack elements in the third stack.
     while (!s2.isEmpty())
     {
         int popped1 = s2.pop();
-        s1.push(popped1);
+        s3.push(popped1);
     }
 
-    cout<<"After filling s2: "<<endl;
-    s2.display();
-    cout<<"After filling s1: "<<endl;
-    s1.display();
-    cout<<endl;
+    //Pushing all the stack elements in the original stack with reversed elements.
+    while(!s3.isEmpty()){
+        int popped2 = s3.pop();
+        s1.push(popped2);
+    }
 
 }
 
@@ -110,6 +110,7 @@ int main()
     stack1.push(80);
     stack1.push(90);
     stack1.push(100);
+    
     cout << "Stack before reversing is: " << endl;
     stack1.display();
     cout << endl;
@@ -117,10 +118,11 @@ int main()
 
     // Declaring another empty stack
     Stack stack2;
+    Stack stack3;
 
-    reverseStackUsingStack(stack1, stack2);
+    reverseStackUsingStack(stack1, stack2, stack3);
     cout << "Stack after reversing is: " << endl;
-    stack2.display();
+    stack1.display();
 
 
 }
