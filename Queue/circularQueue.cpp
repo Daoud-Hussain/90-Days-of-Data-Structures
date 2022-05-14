@@ -93,9 +93,5 @@ int main()
     myQueue.Enqueue(30);
     myQueue.Enqueue(40);
     myQueue.Enqueue(50);
-    myQueue.Dequeue();
-    myQueue.Dequeue();
-    myQueue.Dequeue();
-    myQueue.Dequeue();
     myQueue.display();
 }

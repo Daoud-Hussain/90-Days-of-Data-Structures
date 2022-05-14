@@ -41,6 +41,8 @@ struct Queue
         }
         else if(isEmpty()){
             front = rear = 0;
+            arr[rear] = data;
+            rear = (rear + 1) % size;
         }
         else{
             arr[rear] = data;
@@ -78,3 +80,26 @@ struct Queue
         }
     }
 };
+
+
+
+int main(){
+    Queue myQueue;
+    myQueue.Enqueue(10);
+    myQueue.Enqueue(20);
+    myQueue.Enqueue(30);
+    myQueue.Enqueue(40);
+    myQueue.Enqueue(50);
+    myQueue.Enqueue(60);
+    myQueue.Enqueue(70);
+
+    myQueue.display();
+    cout<<endl;
+
+    myQueue.Dequeue();
+    myQueue.Dequeue();
+    myQueue.Dequeue();
+    myQueue.display();
+
+
+}
