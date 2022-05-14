@@ -73,52 +73,39 @@ struct stack
     void parenthesisMatched(string data)
     {
         bool flag = true;
-        char temp;
+        char temp ;
         for (int i = 0; i < data.length(); i++)
         {
-            if (data[i] == '(' || data[i] == '{' || data[i] == '[')
+            if (isEmpty())
             {
                 push(arr[i]);
-                temp = data[i];
+                temp = arr[top];
             }
-            else if (data[i] == ')' || data[i] == '}' || data[i] == ']')
+            else if ((temp=='('&& data[i]==')')  ||  (temp =='{' && data[i]=='}')  ||  (temp =='[' && data[i]==']'))
             {   
-                //Checking if the stack is empty or not
-                if (!isEmpty())
-                {   
-                    //If Empty then pop the ')'
-                    if((temp == '(' && data[i] == ')') || (temp == '{' && data[i] == '}') || (temp == '[' && data[i] == ']') ){
-                        pop();
-                    }
-                    else{
-                        flag = false;
-                    }
-                }
-                else
-                {   
-                    //If not empty then end the program as it found ')' without any '('
-                    flag = false;
-                    break;
-                }
+                pop();
+                flag = false;
             }
             else{
                 //Loop going on!!
+                if((arr[i] == '(') || (arr[i] == '{') || (arr[i] == '[')){
+                    push(arr[i]);
+                }
             }
         }
 
-        if (isEmpty())
+        if (!flag)
         {
-            if (!flag)
-            {
-                cout << "Parenthesis are not balanced!!";
-            }
-            else{
+            cout << "Parenthesis are not balanced!!";
+        }
+        else{
+            if(isEmpty()){
                 cout << "Parenthesis are balanced!!";
             }
-        }
-        else
-        {
-            cout << "Parenthesis are NOt balanced!!";
+            else{
+                cout << "Parenthesis are Not balanced!!";
+
+            }
         }
     }
 };
@@ -126,6 +113,6 @@ struct stack
 int main()
 {
     stack *myStack = new stack();
-    string expression = "[3*2]*{5+5}*(2*2)";
+    string expression = "{()}[]";
     myStack->parenthesisMatched(expression);
 }
