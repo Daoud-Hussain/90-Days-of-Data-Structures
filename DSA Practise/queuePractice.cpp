@@ -8,12 +8,12 @@ struct Queue{
     int *arr = new int[size];
 
 
-    // bool isFull(){
-    //     if((front == 0) && (rear = size -1)){
-    //         return true;
-    //     }
-    //     return false;
-    // }
+    bool isFull(){
+        if((front == 0) && (rear = size -1)){
+            return true;
+        }
+        return false;
+    }
 
     // bool isEmpty(){
     //     if((front == -1) && (rear = -1)){
@@ -49,7 +49,31 @@ struct Queue{
 
 };
 
+void sortQueueByArray(Queue tempQueue, int tempArray[]){
+    int count = 0;
+    while(tempQueue.front != -1 && tempQueue.rear != - 1){
+        int dequeuedValue =  tempQueue.arr[tempQueue.front];
+        tempQueue.front++;
+        tempArray[count] = dequeuedValue;
+        count++;
+    }
 
+    while(!tempQueue.isFull()){
+        int max = 0;
+        int indexOfMaxNumber = 0;
+        for(int i = 0; i < 10; i++){
+            if(max < tempArray[i]){
+                max = tempArray[i];
+                indexOfMaxNumber = i;
+            }
+        }
+        tempQueue.enqueue(max);
+        tempArray[indexOfMaxNumber] = 0;
+    }
+
+
+
+}
 
 
 int main(){
@@ -62,8 +86,7 @@ int main(){
     myQueue.enqueue(60);
     myQueue.enqueue(69);
 
+    int myArray[10];
+    sortQueueByArray(myQueue ,myArray);
 
-    cout<<myQueue.dequeue()<<" ";
-    cout<<myQueue.dequeue()<<" ";
-    cout<<myQueue.dequeue()<<" ";
 }
