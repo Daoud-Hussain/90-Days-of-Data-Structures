@@ -29,8 +29,8 @@ bool searchNode(Node *rootNode, int key)
         }
         else
         {
-            cout << "Node " << p->data << " is found in the binary tree!!";
             flag = true;
+            break;
         }
     }
     if (flag)
@@ -38,12 +38,15 @@ bool searchNode(Node *rootNode, int key)
         cout << "Node " << p->data << " is found in the binary tree!!";
         return true;
     }
-    return false;
+    else{
+        return false;
+
+    }
 }
 
 
 //Method to create a Node in the tree
-Node *createNode(int value)
+Node *createTreeNode(int value)
 {
     Node *curr = new Node();
     //In case of no root
@@ -62,20 +65,29 @@ Node *createNode(int value)
     }
 }
 
+
+void inOrderTraversal(Node* t){
+    if(t == NULL){
+        return;
+    }
+    inOrderTraversal(t->left);
+    cout<<t->data<<" ";
+    inOrderTraversal(t->right);
+}
 int main()
 {   
     //Creating nodes in the binary tree
-    Node *n1 = createNode(10);
-    Node *n2 = createNode(20);
-    Node *n3 = createNode(30);
-    Node *n4 = createNode(40);
-    Node *n5 = createNode(50);
+    Node* parent = createTreeNode(60);
+    parent->left = createTreeNode(50);
+    parent->right = createTreeNode(70);
+    parent->left->left = createTreeNode(45);
+    parent->left->right = createTreeNode(55);
+    parent->right->left = createTreeNode(65);
+    parent->right->right = createTreeNode(75);
 
-    //Linking nodes of binary tree
-    n1->left = n2;
-    n1->right = n3;
-    n2->left = n4;
-    n2->right = n5;
 
-    searchNode(n1,30);
+    searchNode(parent,65);
+    cout<<endl;
+    inOrderTraversal(parent);
+
 }
