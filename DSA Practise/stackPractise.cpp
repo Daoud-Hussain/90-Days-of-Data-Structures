@@ -63,6 +63,27 @@ struct Stack
     }
 };
 
+void reverseStackUsingArray(Stack myStack, int tempArray[])
+{
+    int count = 0;
+
+    // Popping elements from the stack until the stack gets empty
+    // and storing the elements in the array.
+    while (!myStack.isEmpty())
+    {
+        int popped = myStack.pop();
+        tempArray[count] = popped;
+        count++;
+    }
+
+    // Storing the array elements back in the stack.
+    int i = 0;
+    while (!myStack.isFull())
+    {
+        myStack.push(tempArray[i]);
+        i++;
+    }
+}
 int main()
 {
     Stack myStack;
@@ -77,20 +98,21 @@ int main()
     myStack.push(90);
     myStack.push(100);
 
-    cout<<"BEfore popping: "<<endl;
+    cout << "BEfore reversing: " << endl;
     myStack.display();
-    cout<<endl;
+    cout << endl;
 
-    cout<<"After popping: "<<endl;
-    myStack.pop();
-    myStack.pop();
-    myStack.pop();
-    myStack.pop();
-    myStack.pop();
-    myStack.pop();
-    myStack.pop();
+    // myStack.pop();
+    // myStack.pop();
+    // myStack.pop();
+    // myStack.display();
+
+    int myArray[10];
+    // cout << "After reversing: " << endl;
+    reverseStackUsingArray(myStack, myArray);
     myStack.display();
-
-
-
+    // for (int i = 10; i != 0; i--)
+    // {
+    //     cout << myArray[i] << " ";
+    // }
 }
