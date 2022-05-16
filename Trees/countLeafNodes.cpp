@@ -39,26 +39,43 @@ void postOrderTraversal(Node* p){
     postOrderTraversal(p->left);
     postOrderTraversal(p->right);
     cout<<p->data<<" ";
-    
 }
+
+
+//Counting leaf Nodes using Recursion
+void countLeafNodes(Node* givenRoot){
+    int count = 0;
+    if(givenRoot->left == NULL && givenRoot->right == NULL){
+        count++;
+        return;
+    }
+    //Moving to the left most node until we get a leaf
+    countLeafNodes(givenRoot->left);
+    countLeafNodes(givenRoot->right);
+    
+    cout<<endl;
+    cout<<"Count is: "<< count;
+}
+
 
 int main()
 {
-    //         10
+    //         50
     //       /    \
-    //      20     30
+    //      20     60
     //     /  \     \
-    //    40   50    60
+    //    10   15    70
 
 
 
     // Creating nodes in the binary tree
-    Node *n1 = createNode(10);
+    Node *n1 = createNode(50);
     n1->left = createNode(20);
-    n1->right = createNode(30);
-    n1->left->left = createNode(40);
-    n1->left->right = createNode(50);
-    n1->right->right = createNode(60);
+    n1->right = createNode(60);
+    n1->left->left = createNode(10);
+    n1->left->right = createNode(15);
+    n1->right->right = createNode(70);
     
     postOrderTraversal(n1);
+    countLeafNodes(n1);
 }
