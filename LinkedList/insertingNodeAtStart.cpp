@@ -16,6 +16,16 @@ void traverseNodes(Node* givenFirstNode){
     }
 }
 
+//Inserting a node at the start of linkedlist
+Node* insertAtStart(int value){
+    Node* temp = new Node();
+    temp->data = value;
+    temp->next = first;
+    first = temp;
+    return temp;
+}
+
+
 int main(){
     Node* firstNode = new Node();
     firstNode->data = 20;
@@ -39,6 +49,12 @@ int main(){
     fourthNode->next = NULL;
     last = fourthNode;
 
+    cout<<"Before: "<<endl;
+    traverseNodes(first);
+    cout<<endl;
+
+    insertAtStart(10);
+    cout<<"After: "<<endl;
     traverseNodes(first);
 
 }
