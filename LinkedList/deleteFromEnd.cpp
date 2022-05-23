@@ -35,9 +35,15 @@ Node* insertAtEnd(int value){
 }
  
 //Deleting node from the start of linkedlist
-void deleteNodeFromStart(){
-    Node* temp = new Node();
-    first = first->next;
+void deleteNodeFromEnd(){
+    Node* temp = first;
+    Node* prev = new Node();
+    
+    while(temp != last){
+        prev = temp;
+        temp = temp->next;
+    }
+    prev->next = NULL;
     delete temp;
 }   
 
@@ -53,7 +59,7 @@ int main(){
     cout<<"Before"<<endl;
     traverseNodes(first);
 
-    deleteNodeFromStart();
+    deleteNodeFromEnd();
     cout<<"\nAfter"<<endl;
     traverseNodes(first);
 
