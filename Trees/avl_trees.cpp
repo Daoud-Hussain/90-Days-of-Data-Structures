@@ -29,11 +29,11 @@ void inOrder(Node *root)
     }
 }
 
-Node *rightRotation(Node *root)
+Node *leftRotation(Node *root)
 {
     Node *x = root->left;
     Node *temp = x->right;
-    if (x)
+    if (x!=NULL)
     {
         x->right = root;
         root->left = temp;
@@ -42,7 +42,7 @@ Node *rightRotation(Node *root)
     return root;
 }
 
-Node *leftRotation(Node *root)
+Node *rightRotation(Node *root)
 {
 
     Node *x = root->right;
@@ -67,7 +67,7 @@ int height(Node *root)
 
 int balanceFactor(Node *root)
 {
-    if (!root)
+    if (root == NULL)
     {
         return 0;
     }
