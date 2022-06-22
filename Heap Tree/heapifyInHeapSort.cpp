@@ -9,7 +9,6 @@ void swap(int *a, int *b){
 
 }
 
-
 //Here, we have data as value of root
 //and i as index of root that will be always 0 initially
 void heapify(int givenArr[], int size, int i){
@@ -31,7 +30,9 @@ void heapify(int givenArr[], int size, int i){
 
 }
 
+
 int main()
 {   
-    int arr[10] = {1,2,5,7,9,12,14,19};    
+    int arr[10] = {1,2,5,7,9,12,14,19};  
+    heapify(arr, 8, 0);  
 }
