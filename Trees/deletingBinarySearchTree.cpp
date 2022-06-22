@@ -113,5 +113,9 @@ int main(){
 
     inOrderTraversal(p1);
 
+
     deleteBSTNode(30);
+    cout<<endl;
+    inOrderTraversal(p1);
+
 }

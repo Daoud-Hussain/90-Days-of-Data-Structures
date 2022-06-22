@@ -1,10 +1,21 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
 /*
     It is a simple management system made using arrays that
     performs CRUD operations using C++ procedural programming.
 */
+
+struct order{
+    int orderNo;
+    string customerName;
+    int front = -1;
+    int rear = -1;
+    string destination;
+    string mobileNo;
+    string orderName;
+};
+
 
 
 //Function to purchase a new product
@@ -15,9 +26,9 @@ void purchaseProducts(string productArray[], int priceArray[]){
     cout<<endl;
     cout<<"********Available products******"<<endl;
     cout<<"1. Biscuits:                 50"<<endl;
-    cout<<"2. Donuts:                250"<<endl;
+    cout<<"2. Fruits:                250"<<endl;
     cout<<"3. Snacks:              150"<<endl;
-    cout<<"4. ColdDrinks:                 100"<<endl;
+    cout<<"4. Ketchup:                 200"<<endl;
     cout<<"5. Chocolates:              350"<<endl;
     cout<<"*********************************"<<endl<<endl;
 
@@ -35,7 +46,7 @@ void purchaseProducts(string productArray[], int priceArray[]){
     case 2:
     {
         price = 250;
-        product = "Donuts";
+        product = "Fruits";
         break;
     }
     case 3:
@@ -46,8 +57,8 @@ void purchaseProducts(string productArray[], int priceArray[]){
     }
     case 4:
     {
-        price = 100;
-        product = "ColdDrinks";
+        price = 200;
+        product = "Ketchup";
         break;
     }
     case 5:
@@ -76,7 +87,7 @@ void purchaseProducts(string productArray[], int priceArray[]){
         
     }
     if(output == 0){
-        cout<<product<<" is purchased Successfully"<<endl;
+        cout<<"Product purchased Successfully"<<endl;
     }
     else{
         cout<<"Couldn't purchased the product Successfully"<<endl;
@@ -156,20 +167,20 @@ void editRecords(string productArray[], int priceArray[]){
             price = 150; 
             flag= true;
         }
-        else if(product == "ColdDrinks" ) {
-            price = 100; 
+        else if(product == "Ketchup" ) {
+            price = 200; 
             flag= true;
         }
         else if(product == "Chocolates" ) {
             price = 350; 
             flag= true;
         }
-        else if(product == "Donuts" ) {
+        else if(product == "Fruits" ) {
             price = 250; 
             flag= true;
         }
         else{
-            cout<<"The given product is not found!!"<<endl;
+            cout<<"Invalid product entered try again!!"<<endl;
         }
     }
 
@@ -220,7 +231,6 @@ int main()
                 editRecords(productArray, pricesArray);
                 break;
             case 5:
-                cout<<"Thank you for visiting our bakkery!!\nHave a great day Sir!!"<<endl<<endl;
                 exit(0);
                 break;
             default:
