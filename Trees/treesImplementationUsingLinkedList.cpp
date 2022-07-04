@@ -8,7 +8,7 @@ struct trees
     trees *right = NULL;
 };
 struct trees *root = NULL;
-
+ 
 // Method to create a node
 trees *createNode(int value)
 {
@@ -20,7 +20,7 @@ trees *createNode(int value)
     return curr;
 }
 
-//Method to print nodes of trees
+//Method to print nodes of trees 
 void printNodes(trees* ptr){
     while(ptr != NULL){
         cout<<ptr->data<<" ";

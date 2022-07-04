@@ -23,7 +23,6 @@ void preOrderTraversal(Tree* t){
     cout<<t->data<<" ";
     preOrderTraversal(t->left);
     preOrderTraversal(t->right);
-
 }
 
 int main()

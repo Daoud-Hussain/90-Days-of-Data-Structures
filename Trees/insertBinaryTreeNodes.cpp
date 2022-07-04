@@ -9,41 +9,107 @@ struct Node
 };
 Node* root = NULL;
 
-//Method to insert value at the left if the root's data is less than the key and vice versa
+//Method to insert value at the left if the root's data is less than the tempRootey and vice versa
 void insert(int key){
-    struct Node* p = new Node();
-    struct Node* curr = new Node();
+    Node* temp = NULL;
+    Node* curr = NULL;
+    Node* tempRoot = NULL;
+
     curr->data = key;
+    curr->left = NULL;
+    curr->right = NULL;
     
-    //Incase of only node
+    //Incase of only Node
     if(root == NULL){
-        curr = root;
+        root = curr;
     }
     else {
-        Node* k = new Node();
-        while (p != NULL)
+        temp = root;
+        while (temp != NULL)
         {   
-            if(p->data > curr->data){
-                p = p->left;
-                k = p;
+            if(temp->data > key){
+                temp = temp->left;
+            }
+            else if(temp->data < key){
+                temp = temp->right;
             }
             else{
-                p = p->right;
-                k = p;
+                //Loop going on!!!
             }
+            tempRoot = temp;
         }
-        if(curr->data > k->data){
-            k->left = curr;
+
+        if(key > tempRoot->data){
+            tempRoot->left = curr;
         }
         else{
-            k->right = curr;
+            tempRoot->right = curr;
         }
+
     }
+}
+//     struct Node *tempNode = new Node();
+//    struct Node *current;
+//    struct Node *parent;
 
+//    tempNode->data = key;
+//    tempNode->left = NULL;
+//    tempNode->right = NULL;
+
+//    //if tree is empty
+//    if(root == NULL) {
+//       root = tempNode;
+//    } else {
+//       current = root;
+//       parent = NULL;
+
+//       while(1) {                
+//          parent = current;
+			
+//          //go to left of the tree
+//          if(key < parent->data) {
+//             current = current->left;                
+//             //insert to the left
+				
+//             if(current == NULL) {
+//                parent->left = tempNode;
+//                return;
+//             }
+//          }  //go to right of the tree
+//          else {
+//             current = current->right;
+            
+//             //insert to the right
+//             if(current == NULL) {
+//                parent->right = tempNode;
+//                return;
+//             }
+//          }
+//       }            
+//    }
+// }      
+
+
+   
+void postOrderTraversal(Node* p){
+    if(p == NULL){
+        return;
+    }
+    postOrderTraversal(p->left);
+    postOrderTraversal(p->right);
+    cout<<p->data<<" ";
     
-
 }
 
 int main(){
+    Node* rootNode = new Node();
+    insert(50);
+    insert(60);
+    insert(20);
+    insert(30);
+    insert(70);
+    insert(35);
+
+    postOrderTraversal(root);
 
 }
