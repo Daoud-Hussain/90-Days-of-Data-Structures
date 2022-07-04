@@ -17,7 +17,7 @@ Orders* last = NULL;
 
 
 //Function to purchase a new product
-void orderAProduct(){
+void orderProducts(){
     string product = "";
     int option,price;
     bool flag = true;
@@ -170,29 +170,126 @@ void checkBills(){
     Orders* temp = first;
     int orderNo = 1;
     while(temp != NULL){
-        if(temp->customerName == name){
-            if(temp->mobileNo == phone){
-                cout<<"\n";
-                total += temp->price;
-                cout<<"----------Your Orders---------------"<<endl;
-                cout<<"-----------------------------------"<<endl;
-                cout<<"Order Number:            "<<orderNo<<endl;
-                cout<<"Customer Name:           "<<temp->customerName<<endl;
-                cout<<"Order Name:              "<<temp->orderName<<endl;
-                cout<<"Price:                   "<<temp->price<<endl;
-                cout<<"Mobile Number:           "<<temp->mobileNo<<endl;
-                orderNo++;
-            }
-            else{
-                cout<<"Invalid phone!! Try Again"<<endl;
-            }
-        }
-        else{
-            cout<<"Invalid name!! Try Again"<<endl;
+        if(temp->customerName == name && temp->mobileNo == phone){
+            cout<<"\n";
+            total += temp->price;
+            cout<<"----------Your Orders---------------"<<endl;
+            cout<<"-----------------------------------"<<endl;
+            cout<<"Order Number:            "<<orderNo<<endl;
+            cout<<"Customer Name:           "<<temp->customerName<<endl;
+            cout<<"Order Name:              "<<temp->orderName<<endl;
+            cout<<"Price:                   "<<temp->price<<endl;
+            cout<<"Mobile Number:           "<<temp->mobileNo<<endl;
+            orderNo++;
         }
         temp = temp->next;
     }
-    cout<<"Total Bill: "<<total<<endl;
+    if(total != 0)
+        cout<<"Total:                   "<<total<<endl;
+    else{
+        cout<<"No such record exists!!!"<<endl;
+    }
+}
+
+
+void updateOrders(){
+    string name = "";
+    string phone = "";
+    int option, price;
+    string product = "";
+    bool done = false;
+    cout<<endl;
+
+    cout<<"*********** Check your bill ***********"<<endl;
+    cout<<"Enter the customer name: "<<" ";
+    cin>>name;
+    cout<<"Enter the mobile number: "<<" ";
+    cin>>phone;
+
+    Orders* temp = first;
+    int orderNo = 1;
+    while(temp != NULL){
+        if(temp->customerName == name && temp->mobileNo == phone){
+            cout<<"\n";
+            cout<<"*********** Available products ***********"<<endl;
+            cout<<"1. Chicken-Burger:                    200"<<endl;
+            cout<<"2. Andy-wala Burger:                  150"<<endl;
+            cout<<"3. Small-Sized-Pizza:                 400"<<endl;
+            cout<<"4. Large-Sized-Pizza:                 750"<<endl;
+            cout<<"5. Fries:                             100"<<endl;
+            cout<<"6. One-Liter-Coke:                    120"<<endl;
+            cout<<"7. Shuwarma:                          150"<<endl;
+            cout<<"******************************************"<<endl<<endl;
+
+
+            cout<<"Enter your new choice: ";
+            cin>>option;
+
+            
+            switch (option)
+            {
+                case 1:
+                {   
+                    price = 200;
+                    product = "Chicken-Burger";
+                    break;
+                }
+                case 2:
+                {
+                    price = 150;
+                    product = "Andy-wala-Burger";
+                    break;
+                }
+                case 3:
+                {
+                    price = 400;
+                    product = "Small-Sized-Pizza";
+                    break;
+                }
+                case 4:
+                {
+                    price = 750;
+                    product = "Large-Sized-Pizza";
+                    break;
+                }
+                case 5:
+                {
+                    price = 100;
+                    product = "Fries";
+                    break;
+                }
+                case 6:
+                {
+                    price = 120;
+                    product = "One-Liter-Coke";
+                    break;
+                }
+                case 7:
+                {
+                    price = 150;
+                    product = "Shuwarma";
+                    break;
+                }
+
+                default:
+                {
+                    cout<<"Invalid input!!"<<endl;
+                    break;
+                }
+            }
+            //Updating the order record in Linkedlist
+            temp->orderName = product;
+            temp->price = price;
+            done = true;
+            
+        }
+        temp = temp->next;
+    }
+    if(done)
+        cout<<"Data updated successfully"<<endl;
+    else{
+        cout<<"No such record exists!!!"<<endl;
+    }
 }
 
 int main(){
@@ -200,12 +297,12 @@ int main(){
     while(true){
             int choice;
             cout<<"\n";
-            cout<<"*******FoodPanda Management System********"<<endl;
+            cout<<"****** FoodPanda Management System *******"<<endl;
             cout<<"------------------------------------------"<<endl;
             cout<<"Enter 1 to purchase products: "<<endl;
-            cout<<"Enter 2 to check products: "<<endl;
-            cout<<"Enter 3 to show bills: "<<endl;
-            cout<<"Enter 4 to edit products: "<<endl;
+            cout<<"Enter 2 to check all orders: "<<endl;
+            cout<<"Enter 3 to check bills: "<<endl;
+            cout<<"Enter 4 to update order: "<<endl;
             cout<<"Enter 5 to exit: "<<endl<<endl;
 
             cout<<"Enter your choice: ";
@@ -215,7 +312,7 @@ int main(){
 
             switch(choice){
                 case 1:
-                    orderAProduct();
+                    orderProducts();
                     break;
 
                 case 2:
@@ -225,9 +322,9 @@ int main(){
                 case 3:
                     checkBills();
                     break;
-                // case 4:
-                //     editRecords(productArray, pricesArray);
-                //     break;
+                case 4:
+                    updateOrders();
+                    break;
                 case 5:
                     cout<<"Thank you for visiting our bakkery!!\nHave a great day Sir!!"<<endl<<endl;
                     exit(0);
