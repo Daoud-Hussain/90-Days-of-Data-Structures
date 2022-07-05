@@ -5,6 +5,116 @@ using namespace std;
     It is a simple management system made using arrays that
     performs CRUD operations using C++ procedural programming.
 */
+int graph[7][7];
+const int INF = 1000;
+string sectors[7] = {"F7","I9","I8","H8","F8","H6","I10"};
+int visited[7];
+int parent[7];
+int source = 0;
+int finalDistance;
+string destination;
+string start =sectors[source];
+
+class sta{
+	public:
+		int size, top;
+		string *s;
+	sta(){
+		size=10;
+		s=new string[size];
+		top=-1;
+	}
+
+	void push(string x){
+		s[++top]=x;						
+	}		
+	string pop(){
+		string x = s[top--];
+		return x;
+	}
+	bool isEmpty(){
+		if(top==-1)
+			return true;
+		else
+			return false;
+	}
+	void display(){
+		for(int i=top; i>=0; i--){
+				cout<<"\n"<<s[i];
+		}
+		cout<<"\n";
+	}
+};
+
+
+
+void addEdgeDistance(int v1, int v2, int w){
+		graph[v1][v2] = w;
+		graph[v2][v1] = w;				
+}
+
+void displayShortestPath(int distance[], int parent[],int source, string unit, string destination){
+	int j;
+	sta s1;									// Stack is used in printing of path in Dijkstra's Algorithm
+	for(int i=0;i<7;i++){
+        if ((sectors[i]).compare(destination)==0){
+            if(i!=source){
+                s1.push(sectors[i]);
+                j=i;
+                //To display correctly
+                do{
+                    j=parent[j];
+                    s1.push(sectors[j]);
+                }while(j!=source);
+            }
+            while(!s1.isEmpty()){
+                s1.pop();
+            }		
+            if (i!=source){
+                finalDistance = distance[i];	
+            }
+        }
+	}
+	cout<<"\n------------------------------------------------------------------------\n";
+}
+
+int minDistance(int distance[], int visited[]){
+	int min = INF; 									// Finds the vertex with minimum distance from all those vertices which are unvisited
+	int minIndex;
+	for (int i = 0; i < 7; i++)
+		if (visited[i] == false && distance[i] <= min){
+			min = distance[i], minIndex = i;
+		}
+	return minIndex;
+}
+
+void dijkstrasAlgorithm(int graph[][7],int distance[], int visited[], int parent[],int source,string unit, string destination){
+
+	for(int i = 0; i < 7; i++){
+		distance[i] = INF;
+		visited[i] = 0;
+		parent[i] = -1;
+	}
+	distance[source] = 0;
+
+	for (int i = 0; i < 6; i++) {
+		int u = minDistance(distance, visited);		
+		visited[u] = 1;
+		for (int i = 0; i < 7; i++){
+            // if ((sectors[i]).compare(destination)==0){
+                if (visited[i] == 0 && graph[u][i]){
+                    if (distance[u] + graph[u][i] < distance[i]){
+                        distance[i] = distance[u] + graph[u][i];	
+                        parent[i] = u;
+                    }
+                }
+            // }
+		}
+	}
+	displayShortestPath(distance,parent,source,unit, destination);
+}
+
+
 //Structure to add,update,check,delete orders
 struct Orders{
     string orderName;
@@ -12,11 +122,77 @@ struct Orders{
     string mobileNo;
     int price;
     int id;
+    string destination;
     Orders* next;
 };
 Orders* first = NULL;
 Orders* last = NULL;
 
+//Stack structure is being used to take feedback
+struct stack
+{
+    int top = -1;
+    int size = 5;
+    string *arr = new string[size];
+
+
+    void display()
+    {
+        int t = top;
+        while (t != -1)
+        {
+            cout << arr[t] << " ";
+            t--;
+        }
+    }
+
+    bool isFull()
+    {
+        if (top == size - 1)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    bool isEmpty()
+    {
+        if (top == -1)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    void push(string value)
+    {
+        if (isFull())
+        {
+            cout << "Stack OverFlow";
+        }
+        else
+        {
+            top++;
+            arr[top] = value;
+        }
+    }
+
+    string pop()
+    {
+
+        if (isEmpty())
+        {
+            cout << "Stack UnderFlow";
+        }
+        else
+        {
+            string value = arr[top];
+            top--;
+            // cout << "Popped Value is: " << value;
+            return value;
+        }
+    }
+}; stack* global;
 
 // --------------------------------------------------------------------------------------------------
 struct Tree{
@@ -174,7 +350,13 @@ void orderProducts(){
     bool flag = true;
     string name = "";
     string phone = "";
+    int distance[7];
+    
+    cout<<"Enter your destination: "<<" ";
+    cin>>destination;
+    dijkstrasAlgorithm(graph,distance,visited,parent,source,"km",destination);
     cout<<endl;
+
 
     cout<<"*********** Purchase a Project ***********"<<endl;
     cout<<"Enter the customer name: "<<" ";
@@ -269,6 +451,7 @@ void orderProducts(){
         order->customerName = name;
         order->mobileNo = phone;
         order->id= orderId;
+        order->destination = destination;
         first = order;
         last = order;
         order->next = NULL;
@@ -281,6 +464,7 @@ void orderProducts(){
         order->mobileNo = phone;
         last->next = order;
         order->id = orderId;
+        order->destination = destination;
         last = order;
         order->next = NULL;
     }
@@ -309,7 +493,14 @@ void checkOrders(){
         cout<<"Order Name:              "<<temp->orderName<<endl;
         cout<<"Price:                   "<<temp->price<<endl;
         cout<<"Mobile Number:           "<<temp->mobileNo<<endl;
+        cout<<"From:                     F7"<<endl;
+        cout<<"To:                      "<<temp->destination<<endl;
+        cout<<"Shortest Distance:       "<<finalDistance<<"km"<<endl;
+
         temp = temp->next;
+    }
+    if(temp == NULL){
+        cout<<"No record found!!!"<<endl;
     }
 }
 
@@ -340,6 +531,9 @@ void checkBills(){
             cout<<"Order Name:              "<<temp->orderName<<endl;
             cout<<"Price:                   "<<temp->price<<endl;
             cout<<"Mobile Number:           "<<temp->mobileNo<<endl;
+            cout<<"From:                     F7"<<endl;
+            cout<<"To:                      "<<temp->destination<<endl;
+            cout<<"Shortest Distance:       "<<finalDistance<<"km"<<endl;
             done = true;
         }
         temp = temp->next;
@@ -452,6 +646,16 @@ void updateOrders(){
     }
 }
 
+void takeFeedback(){
+    cout<<"---------- Feedbacks ---------------"<<endl;
+    cout<<"------------------------------------"<<endl;
+    string feedback = "";
+    cout<<"Enter your feedback (Great/Better/Bad)?: ";
+    cin>>feedback;
+
+
+    global->push(feedback);
+}
 
 void cancelOrder(){
     string name = "";
@@ -519,13 +723,41 @@ void deliverOrders(){
             root = insertTreeNode(root, temp);
             
             //Deleting nodes
-            prev->next = temp->next;
-            delete temp;
+            if(prev == NULL){
+                //For first node
+                Orders* curr = first;
+                first = first->next;
+                curr->next = NULL;
+                delete curr;
+            }
+            else if(temp == NULL){
+                //For last node
+                prev->next = NULL;
+                last = prev;
+
+            }
+            else{
+                prev->next = temp->next;
+                delete temp;
+            }
+                
             done = true;
+            cout<<"Before quiting, Please share your valuable feedback "<<endl<<endl;
+            takeFeedback();
         }
         prev = temp;
         temp = temp->next;
+
     }
+    
+    // if(last == prev){
+    //     cout<<"\n";
+    //     cout<<"Order Number:            "<<prev->id<<endl;
+    //     cout<<"Customer Name:           "<<prev->customerName<<endl;
+    //     cout<<"Order Name:              "<<prev->orderName<<endl;
+    //     cout<<"Price:                   "<<prev->price<<endl;
+    //     cout<<"Mobile Number:           "<<prev->mobileNo<<endl;
+    // }
     if(done)
         cout<<"Successfully delivered all orders!!!"<<endl;
     else{
@@ -534,9 +766,23 @@ void deliverOrders(){
     inOrdertraversal(root);
 }
 
+
 int main(){
 //Main Calling function
     while(true){
+            
+            addEdgeDistance(0,1,315);
+	        addEdgeDistance(0,2,374);
+	        addEdgeDistance(0,3,1025);
+	        addEdgeDistance(1,4,520);
+	        addEdgeDistance(2,3,149);
+	        addEdgeDistance(2,4,186);	
+	        addEdgeDistance(2,5,158);	
+	        addEdgeDistance(3,5,1095);
+	        addEdgeDistance(6,4,598);
+	        addEdgeDistance(6,5,50);
+
+
             int choice;
             cout<<"\n";
             cout<<"****** FoodPanda Management System *******"<<endl;
@@ -547,7 +793,8 @@ int main(){
             cout<<"Enter 4 to update order: "<<endl;
             cout<<"Enter 5 to cancel order: "<<endl;
             cout<<"Enter 6 to deliver order: "<<endl;
-            cout<<"Enter 7 to exit: "<<endl<<endl;
+            cout<<"Enter 7 to check feedback: "<<endl;
+            cout<<"Enter 8 to exit: "<<endl<<endl;
 
             cout<<"Enter your choice: ";
             cin>>choice;
@@ -557,6 +804,7 @@ int main(){
             switch(choice){
                 case 1:
                     orderProducts();
+                    
                     break;
 
                 case 2:
@@ -576,6 +824,9 @@ int main(){
                     deliverOrders();
                     break;
                 case 7:
+                    global->display();
+                    break;
+                case 8:
                     cout<<"Thank you for visiting our bakkery!!\nHave a great day Sir!!"<<endl<<endl;
                     exit(0);
                     break;
