@@ -20,11 +20,16 @@ Orders* last = NULL;
 
 // --------------------------------------------------------------------------------------------------
 struct Tree{
-    int data; 
+    string orderName;
+    string customerName;
+    string mobileNo;
+    int price;
+    int id;
     int height;
     Tree* left;
     Tree* right;
 };
+Tree* root = NULL;
 
 //Function to return height of a tree node
 int height(Tree* node){
@@ -44,20 +49,31 @@ int getBalanceFactor(Tree* node){
 
 
 // Function to traverse nodes using Pre-order
-void preOrdertraversal(Tree *p)
+void inOrdertraversal(Tree *p)
 {
     if (p == NULL)
     {
         return;
     }
-    cout << p->data << " ";
-    preOrdertraversal(p->left);
-    preOrdertraversal(p->right);
+    inOrdertraversal(p->left);
+    cout<<endl;
+    cout<<"------ Your Delivered Orders ------"<<endl;
+    cout<<"-----------------------------------"<<endl;
+    cout<<"Order Number:            "<<p->id<<endl;
+    cout<<"Customer Name:           "<<p->customerName<<endl;
+    cout<<"Order Name:              "<<p->orderName<<endl;
+    cout<<"Price:                   "<<p->price<<endl;
+    cout<<"Mobile Number:           "<<p->mobileNo<<endl;
+    inOrdertraversal(p->right);
 }
 
-Tree* createTreeNode(int data){
+Tree* createTreeNode(string on, string cn, string mn, int ID,int pr){
     Tree* curr = new Tree();
-    curr->data = data;
+    curr->orderName = on;
+    curr->customerName = cn;
+    curr->mobileNo = mn;
+    curr->price = pr;
+    curr->id = ID;
     curr->height = 1;
     curr->left = NULL;
     curr->right = NULL;
@@ -101,20 +117,19 @@ Tree* rightRotation(Tree* root){
 }
 
 
-Tree* insertNode(Tree* root, int value){
+Tree* insertTreeNode(Tree* root, Orders* cancelled){
     if(root == NULL){
-        return(createTreeNode(value));
+        return(createTreeNode(cancelled->orderName, cancelled->customerName, cancelled->mobileNo, cancelled->id, cancelled->price ));
     }
-    else if(root->data > value){
-        root->left = insertNode(root->left, value);
+    else if(root->id > cancelled->id){
+        root->left = insertTreeNode(root->left, cancelled);
     }
 
-    else if(root->data < value){
-        root->right = insertNode(root->right, value);
+    else if(root->id < cancelled->id){
+        root->right = insertTreeNode(root->right, cancelled);
     }
     else{
         cout<<"No duplicate node exists in BST"<<endl;
-        return root;
     }
 
     root->height = 1 + max(height(root->left), height(root->right));
@@ -125,23 +140,23 @@ Tree* insertNode(Tree* root, int value){
 
     //If the node is unbalanced,  we will have four cases
     //1. RR - rotation
-    if(balanceFactor < -1 && value > root->right->data ){
+    if(balanceFactor < -1 && cancelled->id > root->right->id ){
         return leftRotation(root);
     }
 
     //2. LL - rotation
-    if(balanceFactor > 1 && value < root->left->data ){
+    if(balanceFactor > 1 && cancelled->id < root->left->id ){
         return rightRotation(root);
     }
 
     //3. RL - rotation
-    if(balanceFactor < -1 && value < root->right->data){
+    if(balanceFactor < -1 && cancelled->id < root->right->id){
         root->right = rightRotation(root->right);
         return leftRotation(root);
     }
 
     //4. LR - rotation
-    if(balanceFactor > 1 && value > root->left->data){
+    if(balanceFactor > 1 && cancelled->id > root->left->id){
         root->left = leftRotation(root->left);
         return rightRotation(root);
     }
@@ -441,7 +456,6 @@ void updateOrders(){
 void cancelOrder(){
     string name = "";
     string phone = "";
-    int total = 0;
     int orderId;
     cout<<endl;
 
@@ -460,6 +474,7 @@ void cancelOrder(){
     while(temp != NULL){
         if(temp->customerName == name && temp->mobileNo == phone && temp->id == orderId){
             cout<<"\n";
+            //Deleting nodes
             prev->next = temp->next;
             delete temp;
             done = true;
@@ -474,6 +489,51 @@ void cancelOrder(){
     }
 }
 
+void deliverOrders(){
+    string name = "";
+    string phone = "";
+
+    cout<<endl;
+
+    cout<<"*********** Cancel an Order ***********"<<endl;
+    cout<<"Enter the customer name: "<<" ";
+    cin>>name;
+    cout<<"Enter the mobile number: "<<" ";
+    cin>>phone;
+
+    Orders* temp = first;
+    Orders* prev = NULL;
+    bool done = false;
+
+    cout<<"----------Your Orders---------------"<<endl;
+    cout<<"-----------------------------------"<<endl;
+    while(temp != NULL){
+        if(temp->customerName == name && temp->mobileNo == phone){
+            cout<<"\n";
+            cout<<"Order Number:            "<<temp->id<<endl;
+            cout<<"Customer Name:           "<<temp->customerName<<endl;
+            cout<<"Order Name:              "<<temp->orderName<<endl;
+            cout<<"Price:                   "<<temp->price<<endl;
+            cout<<"Mobile Number:           "<<temp->mobileNo<<endl;
+            //Adding in AVL Tree
+            root = insertTreeNode(root, temp);
+            
+            //Deleting nodes
+            prev->next = temp->next;
+            delete temp;
+            done = true;
+        }
+        prev = temp;
+        temp = temp->next;
+    }
+    if(done)
+        cout<<"Successfully delivered all orders!!!"<<endl;
+    else{
+        cout<<"No such record exists!!!"<<endl;
+    }
+    inOrdertraversal(root);
+}
+
 int main(){
 //Main Calling function
     while(true){
@@ -486,7 +546,8 @@ int main(){
             cout<<"Enter 3 to check bills: "<<endl;
             cout<<"Enter 4 to update order: "<<endl;
             cout<<"Enter 5 to cancel order: "<<endl;
-            cout<<"Enter 6 to exit: "<<endl<<endl;
+            cout<<"Enter 6 to deliver order: "<<endl;
+            cout<<"Enter 7 to exit: "<<endl<<endl;
 
             cout<<"Enter your choice: ";
             cin>>choice;
@@ -512,6 +573,9 @@ int main(){
                     cancelOrder();
                     break;
                 case 6:
+                    deliverOrders();
+                    break;
+                case 7:
                     cout<<"Thank you for visiting our bakkery!!\nHave a great day Sir!!"<<endl<<endl;
                     exit(0);
                     break;
