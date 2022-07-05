@@ -1,10 +1,7 @@
 #include<iostream>
 using namespace std;
 
-/*
-    It is a simple management system made using arrays that
-    performs CRUD operations using C++ procedural programming.
-*/
+//Grpahs Implementation to find Dijistra's algo
 int graph[7][7];
 const int INF = 1000;
 string sectors[7] = {"F7","I9","I8","H8","F8","H6","I10"};
@@ -79,7 +76,7 @@ void displayShortestPath(int distance[], int parent[],int source, string unit, s
 }
 
 int minDistance(int distance[], int visited[]){
-	int min = INF; 									// Finds the vertex with minimum distance from all those vertices which are unvisited
+	int min = INF; 				
 	int minIndex;
 	for (int i = 0; i < 7; i++)
 		if (visited[i] == false && distance[i] <= min){
@@ -115,6 +112,7 @@ void dijkstrasAlgorithm(int graph[][7],int distance[], int visited[], int parent
 }
 
 
+//Linkedlist implementation
 //Structure to add,update,check,delete orders
 struct Orders{
     string orderName;
@@ -194,7 +192,7 @@ struct stack
     }
 }; stack* global;
 
-// --------------------------------------------------------------------------------------------------
+// AVL-Trees structure to store delivered orders 
 struct Tree{
     string orderName;
     string customerName;
@@ -342,6 +340,7 @@ Tree* insertTreeNode(Tree* root, Orders* cancelled){
 
 
 // -------------------------------------------------------------------------------------------
+// Working Methods
 
 //Function to purchase a new product
 void orderProducts(){
@@ -771,6 +770,7 @@ int main(){
 //Main Calling function
     while(true){
             
+            //Initializing graph 
             addEdgeDistance(0,1,315);
 	        addEdgeDistance(0,2,374);
 	        addEdgeDistance(0,3,1025);
