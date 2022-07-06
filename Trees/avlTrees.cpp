@@ -26,15 +26,15 @@ int getBalanceFactor(Tree* node){
 
 
 // Function to traverse nodes using Pre-order
-void preOrdertraversal(Tree *p)
+void inOrdertraversal(Tree *p)
 {
     if (p == NULL)
     {
         return;
     }
+    inOrdertraversal(p->left);
     cout << p->data << " ";
-    preOrdertraversal(p->left);
-    preOrdertraversal(p->right);
+    inOrdertraversal(p->right);
 }
 
 Tree* createTreeNode(int data){
@@ -90,6 +90,7 @@ Tree* insertNode(Tree* root, int value){
     else if(root->data > value){
         root->left = insertNode(root->left, value);
     }
+
     else if(root->data < value){
         root->right = insertNode(root->right, value);
     }
@@ -135,6 +136,7 @@ int main()
 {   
     Tree* root = NULL;
     root = insertNode(root, 10);
+    
     root = insertNode(root, 20);
     root = insertNode(root, 30);
     root = insertNode(root, 40);
@@ -142,6 +144,6 @@ int main()
     root = insertNode(root, 25);
 
 
-    preOrdertraversal(root);
+    inOrdertraversal(root);
     
 }
