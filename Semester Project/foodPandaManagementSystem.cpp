@@ -10,6 +10,7 @@ int parent[7];
 int source = 0;
 int finalDistance;
 string destination;
+string shortestPath;
 string start =sectors[source];
 
 class sta{
@@ -65,7 +66,7 @@ void displayShortestPath(int distance[], int parent[],int source, string unit, s
                 }while(j!=source);
             }
             while(!s1.isEmpty()){
-                s1.pop();
+                cout<<"-->"<<s1.pop();
             }		
             if (i!=source){
                 finalDistance = distance[i];	
@@ -120,6 +121,7 @@ struct Orders{
     string mobileNo;
     int price;
     int id;
+    int distance;
     string destination;
     Orders* next;
 };
@@ -198,7 +200,9 @@ struct Tree{
     string customerName;
     string mobileNo;
     int price;
+    string destination;
     int id;
+    int distance;
     int height;
     Tree* left;
     Tree* right;
@@ -238,15 +242,21 @@ void inOrdertraversal(Tree *p)
     cout<<"Order Name:              "<<p->orderName<<endl;
     cout<<"Price:                   "<<p->price<<endl;
     cout<<"Mobile Number:           "<<p->mobileNo<<endl;
+    cout<<"From:                    F7"<<endl;
+    cout<<"To:                      "<<p->destination<<endl;
+    cout<<"Shortest Distance:       "<<finalDistance<<"km"<<endl;
     inOrdertraversal(p->right);
 }
 
-Tree* createTreeNode(string on, string cn, string mn, int ID,int pr){
+Tree* createTreeNode(string on, string cn, int dist, string dest, string mn, int ID,int pr){
     Tree* curr = new Tree();
     curr->orderName = on;
     curr->customerName = cn;
     curr->mobileNo = mn;
+    curr->distance = dist;
+    curr->destination = dest;
     curr->price = pr;
+    
     curr->id = ID;
     curr->height = 1;
     curr->left = NULL;
@@ -293,7 +303,7 @@ Tree* rightRotation(Tree* root){
 
 Tree* insertTreeNode(Tree* root, Orders* cancelled){
     if(root == NULL){
-        return(createTreeNode(cancelled->orderName, cancelled->customerName, cancelled->mobileNo, cancelled->id, cancelled->price ));
+        return(createTreeNode(cancelled->orderName, cancelled->customerName, cancelled->distance, cancelled->destination, cancelled->mobileNo, cancelled->id, cancelled->price ));
     }
     else if(root->id > cancelled->id){
         root->left = insertTreeNode(root->left, cancelled);
@@ -441,7 +451,6 @@ void orderProducts(){
         orderId++;
         node = node->next;
     }
-   
     if(first == NULL && last == NULL){
         //Incase of no order
         Orders* order = new Orders();
@@ -451,6 +460,7 @@ void orderProducts(){
         order->mobileNo = phone;
         order->id= orderId;
         order->destination = destination;
+        order->distance = finalDistance;
         first = order;
         last = order;
         order->next = NULL;
@@ -464,9 +474,11 @@ void orderProducts(){
         last->next = order;
         order->id = orderId;
         order->destination = destination;
+        order->distance = finalDistance;
         last = order;
         order->next = NULL;
     }
+    finalDistance = 0;
 
 
     if(flag){
@@ -483,6 +495,9 @@ void orderProducts(){
 
 void checkOrders(){
     Orders* temp = first;
+    if(temp == NULL){
+        cout<<"No record found!!!"<<endl;
+    }
     while(temp != NULL){
         cout<<"\n";
         cout<<"----------Your Orders---------------"<<endl;
@@ -494,15 +509,12 @@ void checkOrders(){
         cout<<"Mobile Number:           "<<temp->mobileNo<<endl;
         cout<<"From:                     F7"<<endl;
         cout<<"To:                      "<<temp->destination<<endl;
-        cout<<"Shortest Distance:       "<<finalDistance<<"km"<<endl;
+        cout<<"Shortest Distance:       "<<temp->distance<<"km"<<endl;
 
         temp = temp->next;
     }
-    if(temp == NULL){
-        cout<<"No record found!!!"<<endl;
-    }
+    
 }
-
 
 
 void checkBills(){
@@ -553,7 +565,7 @@ void updateOrders(){
     bool done = false;
     cout<<endl;
 
-    cout<<"*********** Check your bill ***********"<<endl;
+    cout<<"*********** Update your Order ***********"<<endl;
     cout<<"Enter the customer name: "<<" ";
     cin>>name;
     cout<<"Enter the mobile number: "<<" ";
@@ -698,7 +710,7 @@ void deliverOrders(){
 
     cout<<endl;
 
-    cout<<"*********** Cancel an Order ***********"<<endl;
+    cout<<"*********** Deliver Orders ***********"<<endl;
     cout<<"Enter the customer name: "<<" ";
     cin>>name;
     cout<<"Enter the mobile number: "<<" ";
@@ -712,53 +724,49 @@ void deliverOrders(){
     cout<<"-----------------------------------"<<endl;
     while(temp != NULL){
         if(temp->customerName == name && temp->mobileNo == phone){
-            cout<<"\n";
-            cout<<"Order Number:            "<<temp->id<<endl;
-            cout<<"Customer Name:           "<<temp->customerName<<endl;
-            cout<<"Order Name:              "<<temp->orderName<<endl;
-            cout<<"Price:                   "<<temp->price<<endl;
-            cout<<"Mobile Number:           "<<temp->mobileNo<<endl;
-            //Adding in AVL Tree
+            // Storing all the orders that are to be delivered in AVL Tree
             root = insertTreeNode(root, temp);
-            
-            //Deleting nodes
+            done = true;
+
+        }
+        temp = temp->next;
+
+    }
+
+    while(temp != NULL){
+        if(temp->customerName == name && temp->mobileNo == phone){
+            //Deleting all delivered orders
             if(prev == NULL){
                 //For first node
                 Orders* curr = first;
                 first = first->next;
                 curr->next = NULL;
+                cout<<"Done\n";
                 delete curr;
             }
             else if(temp == NULL){
                 //For last node
                 prev->next = NULL;
                 last = prev;
-
+                cout<<"Done\n";
             }
             else{
+                //For middle nodes
                 prev->next = temp->next;
+                cout<<"Done\n";
                 delete temp;
             }
-                
-            done = true;
-            cout<<"Before quiting, Please share your valuable feedback "<<endl<<endl;
-            takeFeedback();
         }
         prev = temp;
         temp = temp->next;
 
     }
-    
-    // if(last == prev){
-    //     cout<<"\n";
-    //     cout<<"Order Number:            "<<prev->id<<endl;
-    //     cout<<"Customer Name:           "<<prev->customerName<<endl;
-    //     cout<<"Order Name:              "<<prev->orderName<<endl;
-    //     cout<<"Price:                   "<<prev->price<<endl;
-    //     cout<<"Mobile Number:           "<<prev->mobileNo<<endl;
-    // }
-    if(done)
+
+    if(done){
+        // cout<<"Before quiting, Please share your valuable feedback "<<endl<<endl;
+        // takeFeedback();
         cout<<"Successfully delivered all orders!!!"<<endl;
+    }
     else{
         cout<<"No such record exists!!!"<<endl;
     }
@@ -793,8 +801,9 @@ int main(){
             cout<<"Enter 4 to update order: "<<endl;
             cout<<"Enter 5 to cancel order: "<<endl;
             cout<<"Enter 6 to deliver order: "<<endl;
-            cout<<"Enter 7 to check feedback: "<<endl;
-            cout<<"Enter 8 to exit: "<<endl<<endl;
+            cout<<"Enter 7 to check delivered orders: "<<endl;
+            cout<<"Enter 8 to check feedback: "<<endl;
+            cout<<"Enter 9 to exit: "<<endl<<endl;
 
             cout<<"Enter your choice: ";
             cin>>choice;
@@ -824,9 +833,12 @@ int main(){
                     deliverOrders();
                     break;
                 case 7:
-                    global->display();
+                    inOrdertraversal(root);
                     break;
                 case 8:
+                    global->display();
+                    break;
+                case 9:
                     cout<<"Thank you for visiting our bakkery!!\nHave a great day Sir!!"<<endl<<endl;
                     exit(0);
                     break;
