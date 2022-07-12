@@ -75,7 +75,8 @@ struct stack
         bool flag = true;
         char temp ;
         for (int i = 0; i < data.length(); i++)
-        {
+        {   
+            temp = arr[top];
             if (isEmpty())
             {
                 push(arr[i]);

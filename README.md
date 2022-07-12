@@ -54,7 +54,7 @@ The syntax to declare a singly linkedlist in C++ is given by:
     
     struct LinkedList{
         int data;
-        struct LinkedList *next;
+        LinkedList *next;
      };
  
 
@@ -178,7 +178,113 @@ The code to write a tree node would be similar to what is given below. It has a 
        Tree *rightChild;
     };
 
-#
+## Graphs
+Graphs in data structures are **non-linear** data structures made up of a **finite** number of nodes or vertices and the edges that connect them. Graphs are used to address **real-world problems** in which it represents the problem area as a network like telephone networks, circuit networks, and social networks. Followings are the basic terms used in graphs:
+
+    Vertex: Each node of the graph is represented as a vertex.
+    Edge: Edge represents a path between two vertices or a line between two vertices.
+    Adjacency − Two node or vertices are adjacent if they are connected to each other through an edge.
+    Path − Path represents a sequence of edges between the two vertices.
+
+### Representations of Graphs:
+
+**1. Adjacency list** <br>
+In this type of represenation, nodes of graphs are stored as an index of the one-dimension array followed by edges being stored as a list.
+
+**2. Adjacency matrix** <br>
+In this graph represenation, nodes are represented as the **index** of a **two-dimensional array**, followed by edges represented as **non-zero** values of an adjacent matrix.
+
+Both rows and columns showcase Nodes; the entire matrix is filled with either **“0”** or **“1”**, representing **true** or **false**. Zero represents that there is **no path**, and 1 represents a **path**.
+
+### Graph Traversal 
+Graph traversal is a method used to search nodes in a graph. The graph traversal is used to decide the order used for node arrangement. It also searches for edges without making a loop, which means all the nodes and edges can be searched without creating a loop. 
+
+There are **two** graph traversal structures.
+
+- **Depth First Search (DFS)**:   
+The DFS search begins starting from the **first** node and goes **deeper and deeper**, exploring down until the targeted node is found. If the targeted key is not found, the search path is changed to the path that was stopped exploring during the initial search, and the same procedure is repeated for that branch.
+
+- **Breadth-First Search (BFS)**: <br>
+Breadth-First Search navigates a graph in a **breadth motion** and utilises based on the **Queue** to jump from one node to another, after encountering an end in the path.
+
+
+## Sorting Algorithms
+
+A Sorting Algorithm is used to **rearrange** a given array or list elements according to a comparison operator on the elements. The comparison operator is used to decide the new order of elements in the respective data structure.
+
+### Complexity of Sorting Algorithms
+The efficiency of any sorting algorithm is determined by the time complexity and space complexity of the algorithm.
+
+**1. Time Complexity**: <br>
+Time complexity refers to the time taken by an algorithm to complete its execution with respect to the size of the input. It can be represented in different forms:
+- Big-O notation (**O**)
+- Omega notation (**Ω**)
+- Theta notation (**Θ**)
+
+**2. Space Complexity**: <br>
+Space complexity refers to the total amount of memory used by the algorithm for a complete execution. It includes both the auxiliary memory and the input.
+
+### Types of Sorting Algos:
+### 1. Bubble Sort
+Bubble Sort is the **simplest** sorting algorithm that works by repeatedly swapping the adjacent elements if they are in the wrong order. This algorithm is not suitable for large data sets as its average and worst case time complexity is quite **high**.
+
+#### Complexity of Bubble Sort:
+- Time Complexity: **O(N<sup>2</sup>)** 
+- Space Complexity: **O(1)**
+
+
+### 2. Selection Sort:
+The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array.
+
+- The subarray which is already sorted. 
+- Remaining subarray which is unsorted.
+In every iteration of selection sort, the minimum element (considering ascending order) from the unsorted subarray is picked and moved to the sorted subarray. 
+
+#### Complexity of Selection Sort:
+- Time Complexity: **O(N)xO(N) = O(NxN) = O(N<sup>2</sup>)** 
+- Space Complexity: **O(1)**
+
+### 3. Insertion Sort:
+Insertion sort is a simple sorting algorithm that works similar to the way you sort playing cards in your hands. The array is virtually split into a sorted and an unsorted part. Values from the unsorted part are picked and placed at the correct position in the sorted part.
+
+#### Complexity of Insertion Sort:
+- Time Complexity: **O(N<sup>2</sup>)** 
+- Space Complexity: **O(1)**
+
+### 4. Merge Sort:
+Merge sort is a sorting technique based on **divide and conquer technique**. Merge operation is the process of taking two smaller sorted arrays and combining them to eventually make a larger one. Here, the array is divided into **multiple sub-arrays**. Each sub-array is solved individually. Finally, sub-problems are combined to form the final solution.
+
+**Implementation**: <br>
+The given array is initially divided into **two equal halves** and then they are combined in a sorted manner. We can think of it as a recursive algorithm that continuously splits the array in half until it cannot be further divided. This means that if the array becomes empty or has only one element left, the dividing will stop. If the array has multiple elements, we split the array into halves and recursively invoke the merge sort on each of the halves. Finally, when both the halves are sorted, the merge operation is applied. 
+
+#### Complexity of Merge Sort:
+- Time Complexity: **O(N log N)** 
+- Space Complexity: **O(N)**
+
+
+## Searching Algorithms
+
+Searching in data structure refers to the process of **finding the required information** from a collection of items stored as elements in the computer memory. These sets of items are in different forms, such as an array, linked list, graph, or tree. It is basically the process of locating the desired element of specific characteristics in a collection of items.
+
+### Types of Searching Algorithms:
+There are numerous searching algorithms in a data structure such as linear search, binary search, interpolation search, sublist search, exponential search, jump search. Let’s take a closer look at the linear and binary searches in the data structure.
+
+### 1. Linear Search
+The linear search algorithm iteratively searches all elements of the array. It has the best execution time of one and the worst execution time of **n**, where **n** is the total number of items in the search array.
+
+It is the simplest search algorithm in data structure and checks each item in the set of elements until it matches the searched element till the end of data collection. When the given data is unsorted, a linear search algorithm is preferred over other search algorithms.
+
+#### Complexity of Linear Search:
+- Time Complexity: **O(N)**
+- Space Complexity: **O(1)**
+
+### 2. Binary Search:
+Binary search algorithm works on the principle of **divide and conquer**. For this algorithm to work properly, the data collection should be in the sorted form.
+It looks for a particular item by comparing the **middle most item** of the collection. If a **match occurs**, then the index of item is **returned**. If the middle item is **greater** than the item, then the item is searched in the sub-array to the **left of the middle item***. Otherwise, the item is searched for in the sub-array to the **right** of the middle item. This process continues on the sub-array as well until the size of the subarray reduces to **zero**.
+
+#### Complexity of Binary Search:
+- Time Complexity: **O(log n)** 
+- Space Complexity: **O(1)**
 
 ### Author
 - <a href="http://daoud-hussain.com/"> Daoud Hussain </a> 
@@ -187,3 +293,5 @@ The code to write a tree node would be similar to what is given below. It has a 
 - <a href="https://www.geeksforgeeks.org/c-plus-plus/"> Geeks for Geeks </a> 
 - <a href="https://www.javatpoint.com/cpp-tutorial"> JavaT point </a> 
 - <a href="https://www.programiz.com/cpp-programming#:~:text=C%2B%2B%20is%20a%20powerful%20general,powerful%20as%20well%20as%20flexible."> Programmiz </a> 
+
+ **💬 All the code is fully Open-Sourced. Show some love by giving it a STAR🌟.**

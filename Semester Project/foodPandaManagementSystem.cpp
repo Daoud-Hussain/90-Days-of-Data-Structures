@@ -53,7 +53,7 @@ void addEdgeDistance(int v1, int v2, int w){
 
 void displayShortestPath(int distance[], int parent[],int source, string unit, string destination){
 	int j;
-	sta s1;									// Stack is used in printing of path in Dijkstra's Algorithm
+	sta s1;			// Stack is used in printing of path in Dijkstra's Algorithm
 	for(int i=0;i<7;i++){
         if ((sectors[i]).compare(destination)==0){
             if(i!=source){
@@ -99,14 +99,12 @@ void dijkstrasAlgorithm(int graph[][7],int distance[], int visited[], int parent
 		int u = minDistance(distance, visited);		
 		visited[u] = 1;
 		for (int i = 0; i < 7; i++){
-            // if ((sectors[i]).compare(destination)==0){
                 if (visited[i] == 0 && graph[u][i]){
                     if (distance[u] + graph[u][i] < distance[i]){
                         distance[i] = distance[u] + graph[u][i];	
                         parent[i] = u;
                     }
                 }
-            // }
 		}
 	}
 	displayShortestPath(distance,parent,source,unit, destination);
@@ -192,7 +190,13 @@ struct stack
             return value;
         }
     }
-}; stack* global;
+
+    //8. Function to take feedback from the customers
+    void takeFeedback(string feedback){
+        push(feedback);
+    }
+
+}; 
 
 // AVL-Trees structure to store delivered orders 
 struct Tree{
@@ -223,29 +227,6 @@ int getBalanceFactor(Tree* node){
         return 0;
     }
     return height(node->left) - height(node->right);
-}
-
-
-// Function to traverse nodes using Pre-order
-void inOrdertraversal(Tree *p)
-{
-    if (p == NULL)
-    {
-        return;
-    }
-    inOrdertraversal(p->left);
-    cout<<endl;
-    cout<<"------ Your Delivered Orders ------"<<endl;
-    cout<<"-----------------------------------"<<endl;
-    cout<<"Order Number:            "<<p->id<<endl;
-    cout<<"Customer Name:           "<<p->customerName<<endl;
-    cout<<"Order Name:              "<<p->orderName<<endl;
-    cout<<"Price:                   "<<p->price<<endl;
-    cout<<"Mobile Number:           "<<p->mobileNo<<endl;
-    cout<<"From:                    F7"<<endl;
-    cout<<"To:                      "<<p->destination<<endl;
-    cout<<"Shortest Distance:       "<<finalDistance<<"km"<<endl;
-    inOrdertraversal(p->right);
 }
 
 Tree* createTreeNode(string on, string cn, int dist, string dest, string mn, int ID,int pr){
@@ -301,6 +282,30 @@ Tree* rightRotation(Tree* root){
 }
 
 
+// 7. Function to display all delivered orders from AVL tree
+void inOrdertraversal(Tree *p)
+{
+    if (p == NULL)
+    {
+        return;
+    }
+    inOrdertraversal(p->left);
+    cout<<endl;
+    cout<<"------ Your Delivered Orders ------"<<endl;
+    cout<<"-----------------------------------"<<endl;
+    cout<<"Order Number:            "<<p->id<<endl;
+    cout<<"Customer Name:           "<<p->customerName<<endl;
+    cout<<"Order Name:              "<<p->orderName<<endl;
+    cout<<"Price:                   "<<p->price<<endl;
+    cout<<"Mobile Number:           "<<p->mobileNo<<endl;
+    cout<<"From:                    F7"<<endl;
+    cout<<"To:                      "<<p->destination<<endl;
+    cout<<"Shortest Distance:       "<<finalDistance<<"km"<<endl;
+    inOrdertraversal(p->right);
+
+}
+
+
 Tree* insertTreeNode(Tree* root, Orders* cancelled){
     if(root == NULL){
         return(createTreeNode(cancelled->orderName, cancelled->customerName, cancelled->distance, cancelled->destination, cancelled->mobileNo, cancelled->id, cancelled->price ));
@@ -350,9 +355,9 @@ Tree* insertTreeNode(Tree* root, Orders* cancelled){
 
 
 // -------------------------------------------------------------------------------------------
-// Working Methods
+// Working functions starting
 
-//Function to purchase a new product
+//1. Function to purchase a new product
 void orderProducts(){
     string product = "";
     int option,price;
@@ -492,7 +497,7 @@ void orderProducts(){
 
 }
 
-
+//2. Function to check all the orders
 void checkOrders(){
     Orders* temp = first;
     if(temp == NULL){
@@ -507,7 +512,7 @@ void checkOrders(){
         cout<<"Order Name:              "<<temp->orderName<<endl;
         cout<<"Price:                   "<<temp->price<<endl;
         cout<<"Mobile Number:           "<<temp->mobileNo<<endl;
-        cout<<"From:                     F7"<<endl;
+        cout<<"From:                    F7"<<endl;
         cout<<"To:                      "<<temp->destination<<endl;
         cout<<"Shortest Distance:       "<<temp->distance<<"km"<<endl;
 
@@ -516,7 +521,7 @@ void checkOrders(){
     
 }
 
-
+//3. Function to check bill of a specific customer
 void checkBills(){
     string name = "";
     string phone = "";
@@ -542,7 +547,7 @@ void checkBills(){
             cout<<"Order Name:              "<<temp->orderName<<endl;
             cout<<"Price:                   "<<temp->price<<endl;
             cout<<"Mobile Number:           "<<temp->mobileNo<<endl;
-            cout<<"From:                     F7"<<endl;
+            cout<<"From:                    F7"<<endl;
             cout<<"To:                      "<<temp->destination<<endl;
             cout<<"Shortest Distance:       "<<finalDistance<<"km"<<endl;
             done = true;
@@ -556,7 +561,7 @@ void checkBills(){
     }
 }
 
-
+//4. Function to update/modify an order
 void updateOrders(){
     string name = "";
     string phone = "";
@@ -657,17 +662,7 @@ void updateOrders(){
     }
 }
 
-void takeFeedback(){
-    cout<<"---------- Feedbacks ---------------"<<endl;
-    cout<<"------------------------------------"<<endl;
-    string feedback = "";
-    cout<<"Enter your feedback (Great/Better/Bad)?: ";
-    cin>>feedback;
-
-
-    global->push(feedback);
-}
-
+//5. Function to cancel an order
 void cancelOrder(){
     string name = "";
     string phone = "";
@@ -704,6 +699,7 @@ void cancelOrder(){
     }
 }
 
+//6. Function to deliver orders of a customer
 void deliverOrders(){
     string name = "";
     string phone = "";
@@ -717,6 +713,7 @@ void deliverOrders(){
     cin>>phone;
 
     Orders* temp = first;
+    Orders* temp2 = first;
     Orders* prev = NULL;
     bool done = false;
 
@@ -733,45 +730,42 @@ void deliverOrders(){
 
     }
 
-    while(temp != NULL){
-        if(temp->customerName == name && temp->mobileNo == phone){
+    while(temp2 != NULL){
+        if(temp2->customerName == name && temp2->mobileNo == phone){
             //Deleting all delivered orders
             if(prev == NULL){
                 //For first node
                 Orders* curr = first;
                 first = first->next;
                 curr->next = NULL;
-                cout<<"Done\n";
                 delete curr;
             }
-            else if(temp == NULL){
+            else if(temp2 == NULL){
                 //For last node
                 prev->next = NULL;
                 last = prev;
-                cout<<"Done\n";
             }
             else{
                 //For middle nodes
-                prev->next = temp->next;
-                cout<<"Done\n";
-                delete temp;
+                prev->next = temp2->next;
+                delete temp2;
             }
         }
-        prev = temp;
-        temp = temp->next;
+        prev = temp2;
+        temp2 = temp2->next;
 
     }
 
     if(done){
-        // cout<<"Before quiting, Please share your valuable feedback "<<endl<<endl;
-        // takeFeedback();
         cout<<"Successfully delivered all orders!!!"<<endl;
+        cout<<"Before quiting, Please share your valuable feedback "<<endl<<endl;
+        takeFeedback();
     }
     else{
         cout<<"No such record exists!!!"<<endl;
     }
-    inOrdertraversal(root);
 }
+
 
 
 int main(){
@@ -835,9 +829,16 @@ int main(){
                 case 7:
                     inOrdertraversal(root);
                     break;
-                case 8:
-                    global->display();
+                case 8:{
+                    string feedback = "";
+                    cout<<"---------- Feedbacks ---------------"<<endl;
+                    cout<<"------------------------------------"<<endl;
+                    cout<<"Enter your feedback (Great/Better/Bad)?: ";
+                    cin>>feedback;
+                    stack *s1 = new stack();
+                    s1->takeFeedback(feedback);
                     break;
+                }
                 case 9:
                     cout<<"Thank you for visiting our bakkery!!\nHave a great day Sir!!"<<endl<<endl;
                     exit(0);
