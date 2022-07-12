@@ -66,7 +66,7 @@ void displayShortestPath(int distance[], int parent[],int source, string unit, s
                 }while(j!=source);
             }
             while(!s1.isEmpty()){
-                cout<<"-->"<<s1.pop();
+                s1.pop();
             }		
             if (i!=source){
                 finalDistance = distance[i];	
@@ -128,14 +128,22 @@ Orders* last = NULL;
 
 //Stack structure is being used to take feedback
 struct stack
-{
-    int top = -1;
-    int size = 5;
-    string *arr = new string[size];
+{   
+    int top;
+    int size;
+    string *arr;
+
+    stack(){
+        int top = -1;
+        int size = 5;
+        string *arr = new string[size];
+    }
 
 
     void display()
-    {
+    {   
+        cout<<"---------- Feedbacks ---------------"<<endl;
+        cout<<"------------------------------------"<<endl;
         int t = top;
         while (t != -1)
         {
@@ -191,9 +199,10 @@ struct stack
         }
     }
 
-    //8. Function to take feedback from the customers
-    void takeFeedback(string feedback){
+//8. Function to take feedback from the customers
+    string takeFeedback(string feedback){
         push(feedback);
+        return feedback;
     }
 
 }; 
@@ -758,8 +767,11 @@ void deliverOrders(){
 
     if(done){
         cout<<"Successfully delivered all orders!!!"<<endl;
-        cout<<"Before quiting, Please share your valuable feedback "<<endl<<endl;
-        takeFeedback();
+        string feedback = "";
+        cout<<"Before quiting, Please share your valuable feedback: (Great/Good/Bad)?? ";
+        cin>>feedback;
+        stack *s1;
+        s1->takeFeedback(feedback);
     }
     else{
         cout<<"No such record exists!!!"<<endl;
@@ -829,14 +841,10 @@ int main(){
                 case 7:
                     inOrdertraversal(root);
                     break;
-                case 8:{
-                    string feedback = "";
-                    cout<<"---------- Feedbacks ---------------"<<endl;
-                    cout<<"------------------------------------"<<endl;
-                    cout<<"Enter your feedback (Great/Better/Bad)?: ";
-                    cin>>feedback;
-                    stack *s1 = new stack();
-                    s1->takeFeedback(feedback);
+                case 8:
+                {
+                    stack *s1;
+                    s1->display();
                     break;
                 }
                 case 9:
