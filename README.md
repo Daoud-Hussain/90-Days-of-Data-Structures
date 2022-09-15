@@ -287,7 +287,7 @@ It looks for a particular item by comparing the **middle most item** of the coll
 - Space Complexity: **O(1)**
 
 ### Author
-- <a href="http://daoud-hussain.com/"> Daoud Hussain </a> 
+- <a href="https://daoudhussain.tech/"> Daoud Hussain </a> 
 ### References:
 - <a href="https://www.w3schools.com/CPP/cpp_intro.asp"> W3Schools</a> 
 - <a href="https://www.geeksforgeeks.org/c-plus-plus/"> Geeks for Geeks </a> 
