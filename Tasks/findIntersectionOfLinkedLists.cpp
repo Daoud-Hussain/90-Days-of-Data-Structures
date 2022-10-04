@@ -32,6 +32,7 @@ void insertInFirst(int value){
         curr->data = value;
         curr->next = NULL;
         tailFirst->next = curr;
+        tailFirst = curr;
     }
 }
 
@@ -47,9 +48,25 @@ void insertInSecond(int value){
         curr->data = value;
         curr->next = NULL;
         tailSecond->next = curr;
+        tailSecond = curr;
+
     }
 }
 
+void findIntersection(){
+    Node *temp1 = headFirst;
+    Node *temp2 = headSecond;
+    while(temp1 != NULL){
+        while(temp2 != NULL){
+            if(temp1->data == temp2->data){
+                cout<<temp1->data<<" ";
+            }
+            temp2 = temp2->next;
+        }
+        temp1 = temp1->next;
+        temp2 = headSecond;
+    }
+}
 
 int main(){
 
@@ -66,16 +83,10 @@ int main(){
     insertInSecond(45);
 
 
-
-//     cout<<"Before: "<<endl;
-//     traverseNodes(first);
-//     splitEvenAndOdd();
-//     cout<<endl<<"After: "<<endl;
-//     traverseNodes(firstEven);
-//     cout<<endl;
-//     traverseNodes(firstOdd);
-// }
     traverseNodes(headFirst);
     cout<<endl;
     traverseNodes(headSecond);
+    cout<<endl<<"Intersected nodes: "<<endl;
+    findIntersection();
+
 }
