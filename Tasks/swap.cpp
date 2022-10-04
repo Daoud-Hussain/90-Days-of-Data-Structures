@@ -39,18 +39,18 @@ void swapNumbers(int val1, int val2)
 }
 
 //Swap Program
-void swapNumbers(int val1, int val2){
-    stu* p = first;
-    stu* q = first;
-    while(p!=NULL){
-        if(p->data==val1){
+// void swapNumbers(int val1, int val2){
+//     stu* p = first;
+//     stu* q = first;
+//     while(p!=NULL){
+//         if(p->data==val1){
             
-        }
+//         }
 
-        p = p->next;
-    }
+//         p = p->next;
+//     }
 
-}
+// }
 
 void printNodes(stu *p)
 {
