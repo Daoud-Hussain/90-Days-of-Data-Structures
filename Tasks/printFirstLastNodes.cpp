@@ -89,10 +89,13 @@ int main()
     insertAtEnd(20);
     insertAtEnd(30);
     insertAtEnd(40);
+    insertAtEnd(50);
+    insertAtEnd(60);
     printNodes(first);
     cout << "\n";
     stu* mid = findMid();   
     stu *tempPtr = reverseNodes(mid);
     // printNodes(tempPtr);
+    // cout<<endl;
     printFirstLastNodes(tempPtr);
 }

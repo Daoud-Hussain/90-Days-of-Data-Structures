@@ -24,7 +24,7 @@ struct car
 	ride *ridePtr;
 };
 
-// Method to add a new car
+// Method to add a new car 
 car *insertCar(car *head, string cn, int rn, int ct)
 {
 	struct car *curr = new car();

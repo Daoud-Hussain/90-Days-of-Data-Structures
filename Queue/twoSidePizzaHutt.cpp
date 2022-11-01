@@ -115,7 +115,7 @@ int main(){
         cout<<"Enter 1 to place order from front: "<<endl;
         cout<<"Enter 2 to place order from rear: "<<endl;
         cout<<"Enter 3 to get order from front: "<<endl;
-        cout<<"Enter 4 to get order from front: "<<endl;
+        cout<<"Enter 4 to get order from rear: "<<endl;
         cout<<"Enter 5 to exit: "<<endl;
         cout<<"Enter your choice: ";
         cin>>choice;

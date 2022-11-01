@@ -90,17 +90,24 @@ void mergeLists(){
         }
         headFirst = finalHead;
     }
+
+
+// void merge(){
+//     tailFirst->next = headSecond; 
+//     finalHead = headFirst;
+//     finalTail = tailSecond;
+// }
 int main(){
 
     insertInFirst(10);
-    insertInFirst(35);
     insertInFirst(20);
-    insertInFirst(40);
     insertInFirst(25);
+    insertInFirst(35);
+    insertInFirst(40);
 
     insertInSecond(15);
-    insertInSecond(35);
     insertInSecond(30);
+    insertInSecond(35);
     insertInSecond(45);
 
     cout<<"First linkedlist: "<<endl;
